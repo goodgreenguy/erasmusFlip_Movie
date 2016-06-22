@@ -5,7 +5,7 @@
 <script type="text/javascript" src="plugins/jQuery/jquery-2.2.4.min.js"></script>
 <script type="text/javascript" src="plugins/jQuery/jquer_validate.min.js"></script>
 <script type="text/javascript" src="plugins/bootstrap/js/bootstrap.min.js"></script>
-
+<script type="text/javascript" src="plugins/jquery.rotate.1-1.js"></script>
 <nav class="navbar navbar-default navbar-inverse" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->

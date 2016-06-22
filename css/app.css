@@ -55,6 +55,117 @@ dy{
     }
 }
 
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes cover_rot {
+    from {-ms-transform: rotate(0deg); /* IE 9 */
+		-webkit-transform: rotate(0deg); /* Safari */
+		transform: rotate(0deg); /* Standard syntax */}
+    to {
+		-ms-transform: rotate(45deg); /* IE 9 */
+		-webkit-transform: rotate(45deg); /* Safari */
+		transform: rotate(45deg); /* Standard syntax */	
+		}
+}
+
+/* Standard syntax */
+@keyframes cover_rot {
+    from {-ms-transform: rotate(0deg); /* IE 9 */
+		-webkit-transform: rotate(0deg); /* Safari */
+		transform: rotate(0deg); /* Standard syntax */	}
+	to {
+		-ms-transform: rotate(45deg); /* IE 9 */
+		-webkit-transform: rotate(45deg); /* Safari */
+		transform: rotate(45deg); /* Standard syntax */	
+		}
+}
+
+img.box{
+	width:260px;
+	height:270px;
+	
+}
+
+img.box_open{
+	-webkit-animation: mymove 2s ; /* Chrome, Safari, Opera */
+    animation: mymove 2s ;
+	-webkit-animation-timing-function: ease;
+}
+.box_open{
+	-webkit-animation: mymove 2s ; /* Chrome, Safari, Opera */
+    animation: mymove 2s ;
+	-webkit-animation-timing-function: ease;
+}
+.box_whole{
+    position: relative;
+    top: initial;
+    left: 150;
+    font-size: 27;
+}
+
+.box_align{
+	position: relative;
+}
+
+.box_cover{
+	position: relative;
+    bottom: 20;
+    left: 20;
+}
+
+.box_cover_rotate{
+	-webkit-animation-name: cover_rot; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 2s; /* Chrome, Safari, Opera */
+    animation-name: cover_rot;
+    animation-duration: 2s;
+}
+
+.mystery{
+	
+	position: relative;
+    left: 263px;
+	
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes mymove {
+    from {bottom: 0px;}
+    to {bottom: 50px;}
+}
+
+/* Standard syntax */
+@keyframes mymove {
+     from {bottom: 0px;}
+    to {bottom: 50px;}
+}
+
+.pop_text{
+	position: relative;
+    top: 140;
+    left: 150;
+}
+
+.cloud_title{
+	position: relative;
+    bottom: 350;
+    left: 160;
+    font-size: 60;
+    font-family: cloudFont;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 
+				 0 0 30px #fff, 0 0 40px #bbd3eb, 
+				 0 0 70px #bacfeb, 0 0 80px #caddf0, 
+				 0 0 100px #cedff1, 0 0 150px #bbd0eb;
+}
+
+@font-face {
+   font-family: cloudFont;
+   src: url(../font/Aladin-Regular.ttf);
+}
+
+div {
+   
+}
+
 /*
 ==============================================
 CSS3 ANIMATION CHEAT SHEET
@@ -825,24 +936,6 @@ pulse
 }
 
 
-img.box{
-	width:260px;
-	height:270px;
-	
-}
-
-.box_align{
-	position: relative;
-    right: 263px;
-	
-}
-
-.mystery{
-	
-	position: relative;
-    left: 263px;
-	
-}
 
 /*
 ==============================================
@@ -895,8 +988,8 @@ tossing
 	animation-name: tossing;
 	-webkit-animation-name: tossing;	
 
-	animation-duration: 2.5s;	
-	-webkit-animation-duration: 2.5s;
+	animation-duration: 1.5s;	
+	-webkit-animation-duration: 1.5s;
 
 	animation-iteration-count: infinite;
 	-webkit-animation-iteration-count: infinite;
