@@ -1,33 +1,33 @@
 <?php include 'header.php'; ?>
 <body>
 <div class="container">
-
 	<div class="row">
-		<span>Welcome to Erasmus Flip & Movie project!</span>
+		<p class="welcome">Welcome to Erasmus Flip & Movie project!</p>
+		</br>
+		</br>
 	</div>
 	<div class="row">
-		<div id="Characters" class="box_whole col-md-6 col-sm-6 ">
+		<div id="Characters" class="box_whole col-md-6 col-sm-7 ">
 			<!-- <img src="img/box_cover.png" class="box box_cover floating" alt="Character">
 			<img src="img/box_body.png" class="box box_align floating" alt="Character" > -->
 			<img src="img/box_whole.png" class="box box_align floating" alt="Character" >
 		</div>
-
-		<div id="Plot" class="box_whole col-md-6 col-sm-6">
-			<!--  <img src="img/box_cover.png" class="box box_cover floating" alt="Plot">
-			<img src="img/box_body.png" class="box box_align floating" alt="Plot" > -->
-
-			<img src="img/box_whole.png" class="box box_align floating" alt="Plot" >
-		</div>
-	</div>
-
-	<div class="row">
-		<div id="Setting" class="box_whole col-md-6 col-sm-2 ">
+		<div id="Setting" class="box_whole col-md-6 col-sm-7 ">
 			<!-- <img src="img/box_cover.png" class="box box_cover floating" alt="Setting">
 			<img src="img/box_body.png" class="box box_align floating" alt="Setting" > -->
 			<img src="img/box_whole.png" class="box box_align floating" alt="Setting" >
-
 		</div>
-		<div id="Ending" class="box_whole col-md-6 col-sm-2">
+
+	</div>
+
+	<div class="row">
+		<div id="Plot" class="box_whole col-md-6 col-sm-7">
+			<!--  <img src="img/box_cover.png" class="box box_cover floating" alt="Plot">
+			<img src="img/box_body.png" class="box box_align floating" alt="Plot" > -->
+			<img src="img/box_whole.png" class="box box_align floating" alt="Plot" >
+		</div>
+		
+		<div id="Ending" class="box_whole col-md-6 col-sm-7">
 			<!-- <img src="img/box_cover.png" class="box box_cover floating" alt="Endings">
 			<img src="img/box_body.png" class="box box_align floating" alt="Endings" > -->
 			<img src="img/box_whole.png" class="box box_align floating" alt="Endings" >
@@ -35,13 +35,15 @@
 		</div>
 	</div>
 	<div class="row mystery">
-		<div id="Mystery" class="box_whole col-md-6 col-sm-2">
+		<div id="Mystery" class="box_whole col-md-6 col-sm-7">
 			<img src="img/box_whole.png" class="box box_align floating" alt="Mystery" >
 
 			<!-- <img src="img/box_cover.png" class="box box_cover floating" alt="Mystery">
 			<img src="img/box_body.png" class="box box_align floating" alt="Mystery" > -->
 		</div>
 	</div>
+	<div id="pen" class="pen"></div>
+
 </div>
 
 <script type="text/javascript" >
@@ -78,41 +80,50 @@ $.fn.animateRotate = function(angle, duration, easing, complete) {
     $({deg: 0}).animate({deg: angle}, args);
   });
 };
+
+/*$(this).find('.box_cover').animateRotate(-45, {
+	  duration: 1000,
+	  easing: 'linear',
+	  complete: function () {},
+	  step: function () {}
+	});*/
+	
 $(document).ready(function(){
-	var cnt = [];
+	var boxes_opened = [];
+	var effect ="";
+	var pen_active = false;
+	
 	$(".box_whole").click(function(){
-		if( $.inArray( this.id, cnt) == -1 )
+		if( $.inArray( this.id, boxes_opened) == -1 ) // disable multiple cloud spawn 
 		{ 
-			cnt.push(this.id);			
+			if( this.id == "Ending" )
+			{
+				boxes_opened.push("Plot");
+				$('#Plot').find('img').removeClass('floating').addClass('pulse');
+			}
+			else if( this.id == "Plot" )
+			{
+				boxes_opened.push("Ending");
+				$('#Ending').find('img').removeClass('floating').addClass('pulse');
+			}
+			boxes_opened.push(this.id);			
 			//$( "#" + this.id + " img").remove();
 			$(this).find('img').fadeOut().remove();
 			// add
 			//$(this).append('<img src="img/box_cover.png" class="box box_cover" alt="Plot">');
 			//$(this).append('<img src="img/box_body.png" class="box box_align tossing" alt="Plot" >');
 			$(this).append('<img src="img/cloud.png" class="bigEntrance" alt="Plot" >').addClass('tossing');
-			$(this).append('<span class="cloud_title">'+ this.id + '</span>');
-			$(this).append('<span class="pop_text fadeIn">' + selectRandom(this.id) + '</span>');
-
-			/*$(this).find('.box_cover').animateRotate(-45, {
-				  duration: 1000,
-				  easing: 'linear',
-				  complete: function () {},
-				  step: function () {}
-				});*/
-			//$(this).find(".box_cover").removeClass('floating').addClass('box_open');
-			//$(this).find(".box_align").removeClass("floating").addClass("tossing");
-			// $('.box_cover').animate({  borderSpacing: -90 }, {
-			// step: function(now,fx) {
-				// $(this).css('-webkit-transform','rotate('+now+'deg)');
-				// $(this).css('-moz-transform','rotate('+now+'deg)');
-					// $(this).css('transform','rotate('+now+'deg)');
-		// },
-		// duration:'slow'
-	// },'linear');
+			$(this).append('<p class="cloud_title">'+ this.id + '</p>');
+			$(this).append('<p class="pop_text fadeIn">' + selectRandom(this.id) + '</p>');
+		}
+		
+		if( ( boxes_opened.length == 5 ) && !pen_active )
+		{
+			pen_active = true;
+			$('#pen').append('<a href="story.php"> <img src="img/pen.png" class="pen" alt="Plot" style="transform: rotate(-40deg);"><p class="pen">Click Here to Start Writing!</p></a>').addClass('slideDown');
+			//.delay(4000).addClass('floating')
 		}
 	});
-
-
 })
 
 </script>

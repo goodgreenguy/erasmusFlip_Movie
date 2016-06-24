@@ -2,6 +2,7 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/app.css">
 <link rel="stylesheet" type="text/css" href="plugins/bootstrap/css/bootstrap.min.css">
+<link href="css/simple-sidebar.css" rel="stylesheet">
 <script type="text/javascript" src="plugins/jQuery/jquery-2.2.4.min.js"></script>
 <script type="text/javascript" src="plugins/jQuery/jquer_validate.min.js"></script>
 <script type="text/javascript" src="plugins/bootstrap/js/bootstrap.min.js"></script>
@@ -44,9 +45,8 @@
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><p class="navbar-text">Admin login here</p></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Admin Login</b> <span class="caret"></span></a>
 			<ul id="login-dp" class="dropdown-menu">
 				<li>
 					 <div class="row">
