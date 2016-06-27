@@ -1,12 +1,18 @@
+<meta charset="UTF-8">
 <head>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/app.css">
 <link rel="stylesheet" type="text/css" href="plugins/bootstrap/css/bootstrap.min.css">
 <link href="css/simple-sidebar.css" rel="stylesheet">
 <script type="text/javascript" src="plugins/jQuery/jquery-2.2.4.min.js"></script>
-<script type="text/javascript" src="plugins/jQuery/jquer_validate.min.js"></script>
+<script type="text/javascript" src="plugins/jquery.validate.min.js"></script>
 <script type="text/javascript" src="plugins/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="plugins/jquery.rotate.1-1.js"></script>
+<script type="text/javascript" src="plugins/js.cookie.js"></script>
+
+
+<title>Erasmus Flip & Movie Project</title>
+
 <nav class="navbar navbar-default navbar-inverse" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -17,13 +23,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Login dropdown</a>
+      <a class="navbar-brand" href="index.php">Home</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link</a></li>
+        <li class="active"><a href="https://www.facebook.com/Erasmus-Flip-Movie-O%C5%A0-Bartul-Ka%C5%A1i%C4%87-242844366101408/"><img class="img-responsive" src="img/FB-f-Logo__blue_29.png" style="width: 70%;"></img></a></li>
         <li><a href="#">Link</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
@@ -38,13 +44,7 @@
           </ul>
         </li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-      <ul class="nav navbar-nav navbar-right">
+       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Admin Login</b> <span class="caret"></span></a>
 			<ul id="login-dp" class="dropdown-menu">
@@ -53,8 +53,8 @@
 							<div class="col-md-12">
 								 <form class="form-signin form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
 										<div class="form-group">
-											 <label class="sr-only" for="exampleInputEmail2">Email address</label>
-											 <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+											 <label class="sr-only" for="user_name">Email address</label>
+											 <input type="email" class="form-control" id="user_name" placeholder="Email address" required>
 										</div>
 										<div class="form-group">
 											 <label class="sr-only" for="password">Password</label>

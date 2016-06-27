@@ -139,16 +139,19 @@ img.box_open{
 }
 
 .pop_text{
-    position: fixed;
-    top: 130;
+	position: fixed;
+    top: 80;
     left: 70;
-	font-size: 20;
+    font-size: 20;
+    width: inherit;
+    height: inherit;
+    word-wrap: break-word;
 }
 
 .cloud_title{
 	position: relative;
     bottom: 350;
-    left: 160;
+	text-align: center;
     font-size: 60;
     font-family: cloudFont;
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 
@@ -162,8 +165,8 @@ img.box_open{
    src: url(../font/Aladin-Regular.ttf);
 }
 
-.welcome{
-	font-size: 30;
+#welcome{
+    font-size: xx-large;
 }
 
 .story_input{
@@ -189,10 +192,86 @@ img.box_open{
 .pen{
 	height: 50%;
 	width: 50%;
-     margin: auto;
-  position: absolute;
+    margin: auto;
+  position: fixed;
   top: 0; left: 0; bottom: 0; right: 0;
 	font-size: 30;
+	color: white;
+
+}
+
+.pen_txt{
+	
+}
+
+.pendiv{
+	-ms-opacity: 0.9;
+    background: #444;
+    display: block;
+    height: 100%;
+    left: 0;
+    opacity: 0.8;
+    position: fixed;
+    top: 0;
+    vertical-align: middle;
+    width: 100%;
+}
+
+div.stretchy-wrapper {
+	width: 100%;
+	padding-bottom: 56.25%; /* 16:9 */
+	position: relative;
+}
+
+div.stretchy-wrapper > div {
+	position: absolute;
+	top: 0; bottom: 0; left: 0; right: 0;
+
+	color: white;
+	font-size: 24px;
+	text-align: center;
+}
+
+.note_title{
+    position: relative;
+    right: 30;
+    word-wrap: break-word;
+    font-size: 20;
+    text-align: center;
+}
+
+.note{
+    position: relative;
+    bottom: 200;
+    height: inherit;
+    text-indent: 30;
+    word-wrap: break-word;
+    font-size: 15;
+    overflow-y: auto;
+}
+
+.note_text{
+	height: 100;
+    width: 174px;
+    word-wrap: break-word;
+    font-size: 13px;
+    overflow-y: auto;
+    position: relative;
+    left: 39px;
+    bottom: 13;
+    line-height: normal;
+}
+
+li.note_whole{
+	height: 250;
+}
+
+.inline{
+	    display: inline-block;
+}
+
+.upload_f{
+	
 }
 
 /*

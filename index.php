@@ -1,8 +1,10 @@
-<?php include 'header.php'; ?>
+<?php  
+include 'header.php';
+?>
 <body>
 <div class="container">
 	<div class="row">
-		<p class="welcome">Welcome to Erasmus Flip & Movie project!</p>
+		<p id="welcome">Welcome to Erasmus Flip & Movie project!</p>
 		</br>
 		</br>
 	</div>
@@ -42,7 +44,6 @@
 			<img src="img/box_body.png" class="box box_align floating" alt="Mystery" > -->
 		</div>
 	</div>
-	<div id="pen" class="pen"></div>
 
 </div>
 
@@ -81,19 +82,31 @@ $.fn.animateRotate = function(angle, duration, easing, complete) {
   });
 };
 
-/*$(this).find('.box_cover').animateRotate(-45, {
-	  duration: 1000,
-	  easing: 'linear',
-	  complete: function () {},
-	  step: function () {}
-	});*/
-	
+function store_sessionData()
+{
+	var tosend = "submit=";
+	$.ajax({
+	type: "GET",
+	url: "backend.php",
+	data: tosend,
+	dataType : 'json'
+	//success: function(data){ callback(data);}
+	});
+}
+
+function pen()
+{
+	$("body").append('<div id="pen" class="pendiv fadeIn"></div>');
+	$('#pen').append('<div id="link" class="hidden"><a href="story.php"><img src="img/pen.png" class="pen img-responsive" style="transform: rotate(-40deg);"><p class="pen">Click Here to Start Writing!</p></a></div>');
+	$('#link').removeClass('hidden').fadeIn();
+}
 $(document).ready(function(){
 	var boxes_opened = [];
 	var effect ="";
 	var pen_active = false;
-	
 	$(".box_whole").click(function(){
+		var cloud_text = "";
+
 		if( $.inArray( this.id, boxes_opened) == -1 ) // disable multiple cloud spawn 
 		{ 
 			if( this.id == "Ending" )
@@ -114,13 +127,17 @@ $(document).ready(function(){
 			//$(this).append('<img src="img/box_body.png" class="box box_align tossing" alt="Plot" >');
 			$(this).append('<img src="img/cloud.png" class="bigEntrance" alt="Plot" >').addClass('tossing');
 			$(this).append('<p class="cloud_title">'+ this.id + '</p>');
-			$(this).append('<p class="pop_text fadeIn">' + selectRandom(this.id) + '</p>');
+			cloud_text = selectRandom(this.id);
+			$(this).append('<p class="pop_text fadeIn">' + cloud_text + '</p>');
+			Cookies.set(this.id, cloud_text);
 		}
 		
 		if( ( boxes_opened.length == 5 ) && !pen_active )
 		{
 			pen_active = true;
-			$('#pen').append('<a href="story.php"> <img src="img/pen.png" class="pen" alt="Plot" style="transform: rotate(-40deg);"><p class="pen">Click Here to Start Writing!</p></a>').addClass('slideDown');
+			setTimeout(pen,3000);
+				//$("#pen").addClass('slideDown');
+			//$('#pen').append('<a href="story.php"> <img src="img/pen.png" class="pen img-responsive" alt="Plot" style="transform: rotate(-40deg);"><p class="pen">Click Here to Start Writing!</p></a>').addClass('slideDown');
 			//.delay(4000).addClass('floating')
 		}
 	});

@@ -346,7 +346,7 @@ class OneFileLoginApplication
          if ($this->feedback) {
             echo $this->feedback . "<br/><br/>";
         }
-        include("index.php");
+      //  include("index.php");
 	}
  
 /*		echo '<div class="container">';

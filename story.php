@@ -1,4 +1,5 @@
-<?php include 'header.php'; ?>
+<?php include 'header.php';
+ ?>
 
 <body>
 
@@ -12,20 +13,40 @@
                         Story Guidelines
                     </a>
                 </li>
-                <li>
-                    Characters
+                <li class="note_whole">
+					  <img src="img/note.png" class="img-responsive" >
+					<div class="note">
+						<p class="note_title">Characters</p>
+						<p class="note_text" id="Characters"></p>
+					</div>
                 </li>
-                <li>
-                    Setting
+                <li class="note_whole">
+					<img src="img/note.png" class="img-responsive" >
+					<div class="note">
+						<p class="note_title">Setting</p>
+						<p class="note_text" id="Setting"></p>
+					<div>
                 </li>
-                <li>
-                    Plot
+                <li class="note_whole">
+					 <img src="img/note.png" class="img-responsive" >
+					 <div class="note">
+						 <p class="note_title">Plot</p>
+						 <p class="note_text" id="Plot"></p>
+					 </div>
                 </li>
-                <li>
-                    Ending
-                </li>
-                <li>
-                    Mystery
+                <li class="note_whole">
+					<img src="img/note.png" class="img-responsive" >
+					<div class="note">
+						<p class="note_title">Ending</p>
+						<p class="note_text" id="Ending"></p>
+					</div>
+			      </li>
+                <li class="note_whole">
+					<img src="img/note.png" class="img-responsive" >
+					<div class="note">
+						<p class="note_title">Mystery</p>
+						<p class="note_text" id="Mystery"></p>
+					</div>
                 </li>
             </ul>
         </div>
@@ -78,6 +99,14 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+	$(document).ready(function(){
+		$('li').each(function() {
+			var div_id = $(this).find('p.note_text').attr('id');
+			$( '#' + div_id).text(Cookies.get(div_id));
+			console.log(div_id);
+		});
+		
+	});
     </script>
 
 </body>
