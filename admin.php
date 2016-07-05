@@ -1,6 +1,12 @@
 <?php 
+session_start(); 
+
+if(!isset($_SESSION['user_is_logged_in']))
+	header('location: index.php');
 
 include 'header.php';
+
+		
 
 ?>
 
@@ -11,6 +17,8 @@ include 'header.php';
 <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
 <link rel="stylesheet" href="plugins/jQuery-File-Upload-9.12.5/css/jquery.fileupload.css">
 <link rel="stylesheet" href="plugins/jQuery-File-Upload-9.12.5/css/jquery.fileupload-ui.css">
+<!-- blueimp Gallery styles -->
+<link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
 <!-- CSS adjustments for browsers with JavaScript disabled -->
 <noscript><link rel="stylesheet" href="plugins/jQuery-File-Upload-9.12.5/css/jquery.fileupload-noscript.css"></noscript>
 <noscript><link rel="stylesheet" href="plugins/jQuery-File-Upload-9.12.5/css/jquery.fileupload-ui-noscript.css"></noscript>
@@ -18,66 +26,216 @@ include 'header.php';
 <body>
 
 <div class="container">
-    <h1>File Upload</h1>
-    <br>
-  
-    <!-- The file upload form used as target for the file upload widget -->
-    <form id="fileupload" action="plugins/UploadHandler.php" method="POST" enctype="multipart/form-data">
-        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-        <div class="row fileupload-buttonbar">
-            <div class="col-lg-7">
-                <!-- The fileinput-button span is used to style the file input field as button -->
-                <span class="btn btn-success fileinput-button">
-                    <i class="glyphicon glyphicon-plus"></i>
-                    <span>Add files...</span>
-                    <input type="file" name="files[]" multiple>
-                </span>
-                <button type="submit" class="btn btn-primary start">
-                    <i class="glyphicon glyphicon-upload"></i>
-                    <span>Start upload</span>
-                </button>
-                <button type="reset" class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel upload</span>
-                </button>
-                <button type="button" class="btn btn-danger delete">
-                    <i class="glyphicon glyphicon-trash"></i>
-                    <span>Delete</span>
-                </button>
-                <input type="checkbox" class="toggle">
-                <!-- The global file processing state -->
-                <span class="fileupload-process"></span>
-            </div>
-            <!-- The global progress state -->
-            <div class="col-lg-5 fileupload-progress fade">
-                <!-- The global progress bar -->
-                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-                </div>
-                <!-- The extended global progress state -->
-                <div class="progress-extended">&nbsp;</div>
-            </div>
-        </div>
-        <!-- The table listing the files available for upload/download -->
-        <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
-    </form>
-    <br>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Demo Notes</h3>
-        </div>
-        <div class="panel-body">
-            <ul>
-                <li>The maximum file size for uploads in this demo is <strong>999 KB</strong> (default file size is unlimited).</li>
-                <li>Only image files (<strong>JPG, GIF, PNG</strong>) are allowed in this demo (by default there is no file type restriction).</li>
-                <li>Uploaded files will be deleted automatically after <strong>5 minutes or less</strong> (demo files are stored in memory).</li>
-                <li>You can <strong>drag &amp; drop</strong> files from your desktop on this webpage (see <a href="https://github.com/blueimp/jQuery-File-Upload/wiki/Browser-support">Browser support</a>).</li>
-                <li>Please refer to the <a href="https://github.com/blueimp/jQuery-File-Upload">project website</a> and <a href="https://github.com/blueimp/jQuery-File-Upload/wiki">documentation</a> for more information.</li>
-                <li>Built with the <a href="http://getbootstrap.com/">Bootstrap</a> CSS framework and Icons from <a href="http://glyphicons.com/">Glyphicons</a>.</li>
-            </ul>
-        </div>
+	
+  <h2>Dynamic Tabs</h2>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Story review</a></li>
+    <li><a data-toggle="tab" href="#menu2">Story Guidelines Import</a></li>
+    <li><a data-toggle="tab" href="#menu3">Image upload</a></li>
+  </ul>
+
+  <div class="tab-content">
+ 
+    <div id="home" class="tab-pane fade in active">
+      <h3>Story review</h3>
+      <p>
+	  
+		<div class="form-group">
+		  <label for="country">Select Country:</label>
+		  <select class="form-control" id="country">
+		  </select>
+		</div>
+		<div class="form-group">
+		  <label for="country">Student:</label>
+		  <select class="form-control" id="students">
+		  </select>
+		</div>
+		
+		<div class="panel panel-primary">
+			<div class="panel-body" id="story">
+			</div>
+		</div>
+	  
+	  </p>
     </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3>MStory Guidelines Import</h3>
+      <p>
+		<!-- The file upload form used as target for the file upload widget -->
+			<form id="fileupload" action="backend.php" method="POST" enctype="multipart/form-data">
+				<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+				<div class="row fileupload-buttonbar">
+					<div class="col-lg-7">
+						<!-- The fileinput-button span is used to style the file input field as button -->
+						<span class="btn btn-success fileinput-button">
+							<i class="glyphicon glyphicon-plus"></i>
+							<span>Add files...</span>
+							<input type="file" name="files[]" multiple>
+						</span>
+						<button type="submit" class="btn btn-primary start">
+							<i class="glyphicon glyphicon-upload"></i>
+							<span>Start upload</span>
+						</button>
+						<button type="reset" class="btn btn-warning cancel">
+							<i class="glyphicon glyphicon-ban-circle"></i>
+							<span>Cancel upload</span>
+						</button>
+						<button type="button" class="btn btn-danger delete">
+							<i class="glyphicon glyphicon-trash"></i>
+							<span>Delete</span>
+						</button>
+						<span id="sel_all" class="btn btn-primary">Select All  </span>
+						<input hidden type="checkbox" id="sel_chk" class="sel_all toggle">
+						<!-- The global file processing state -->
+						<span class="fileupload-process"></span>
+					</div>
+					<!-- The global progress state -->
+					<div class="col-lg-5 fileupload-progress fade">
+						<!-- The global progress bar -->
+						<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+							<div class="progress-bar progress-bar-success" style="width:0%;"></div>
+						</div>
+						<!-- The extended global progress state -->
+						<div class="progress-extended">&nbsp;</div>
+					</div>
+				</div>
+				<!-- The table listing the files available for upload/download -->
+				<table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
+			</form>
+	  
+	  </p>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      <h3>Image upload</h3>
+      <p>
+	      <!-- The file upload form used as target for the file upload widget -->
+			<form id="fileupload" action="backend.php" method="POST" enctype="multipart/form-data">
+				<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+				<div class="row fileupload-buttonbar">
+					<div class="col-lg-7">
+						<!-- The fileinput-button span is used to style the file input field as button -->
+						<span class="btn btn-success fileinput-button">
+							<i class="glyphicon glyphicon-plus"></i>
+							<span>Add files...</span>
+							<input type="file" name="files[]" multiple>
+						</span>
+						<button type="submit" class="btn btn-primary start">
+							<i class="glyphicon glyphicon-upload"></i>
+							<span>Start upload</span>
+						</button>
+						<button type="reset" class="btn btn-warning cancel">
+							<i class="glyphicon glyphicon-ban-circle"></i>
+							<span>Cancel upload</span>
+						</button>
+						<button type="button" class="btn btn-danger delete">
+							<i class="glyphicon glyphicon-trash"></i>
+							<span>Delete</span>
+						</button>
+						<span id="sel_all" class="btn btn-primary">Select All  </span>
+						<input hidden type="checkbox" id="sel_chk" class="sel_all toggle">
+						<!-- The global file processing state -->
+						<span class="fileupload-process"></span>
+					</div>
+					<!-- The global progress state -->
+					<div class="col-lg-5 fileupload-progress fade">
+						<!-- The global progress bar -->
+						<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+							<div class="progress-bar progress-bar-success" style="width:0%;"></div>
+						</div>
+						<!-- The extended global progress state -->
+						<div class="progress-extended">&nbsp;</div>
+					</div>
+				</div>
+				<!-- The table listing the files available for upload/download -->
+				<table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
+			</form>
+	  </p>
+    </div>
+  </div>
+
+	<div class="col-md-offset-3 col-md-3">
+	<form class="form-signin form" role="form" method="post" action="logout">
+			<a href="login_script.php?action=logout">LOUG Out</a><button class="btn btn-lg btn-primary">Log Out</button>
+	</form>
 </div>
+
+<div class="col-md-3">
+<!-- Trigger the modal with a button -->
+<?php 
+	if(isset($_SESSION['user_is_logged_in']) && $_SESSION['user_name'] == 'admin' )
+echo '
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Register User</button>
+';
+?>
+	<!-- Modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Modal Header</h4>
+		  </div>
+		  <div class="modal-body">
+			
+		
+		 <h2 align=center class="form-signin-heading">Registration</h2>
+        <p>
+		 <form class="form-signin" method="post" action="admin.php?action=register" name="registerform">
+			<p><div><label for="login_input_username">Username (only letters and numbers, 2 to 64 characters)</label></div>
+			<input class="form-control" id="login_input_username" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" required /></p>
+			
+			<p><div><label for="login_input_email">User's email</label></div>
+			<input class="form-control" id="login_input_email" type="email" name="user_email" required /></p>
+			
+			<p><div><label for="login_input_country">Country</label></div>
+			<input class="form-control" id="login_input_country" type="text"  name="user_country" required /></p>
+			
+			<p><div><label for="login_input_school">School</label></div>
+			<input class="form-control" id="login_input_school" type="text" name="user_school" required /></p>
+			
+			<p><div><label for="login_input_school">Secret</label></div>
+			<input class="form-control" id="login_input_secret" type="text" name="user_secret" required /></p>
+			
+			<p><div><label for="login_input_password">Password (min. 6 characters)</label></div>
+			<input  id="login_input_password" class="form-control login_input" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" /></p>
+		
+			<p><div><label for="login_input_password_repeat">Repeat password</label></div>			
+			<input  id="login_input_password_repeat" class="form-control login_input" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" /></p>
+<?php 
+	if(isset($_SESSION['user_is_logged_in']) && $_SESSION['user_name'] == 'admin' )
+			echo '<input class="btn btn-lg  btn-block btn-primary" type="submit" name="register" value="Register" />';
+?>
+        </form>
+		</p>
+	
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		  </div>
+		</div>
+
+	  </div>
+	</div>
+	
+</div>
+
+</div>
+<!-- The blueimp Gallery widget -->
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>
+
+
+
+
 
 <!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">
@@ -183,6 +341,99 @@ include 'header.php';
 <script src="plugins/jQuery-File-Upload-9.12.5/js/jquery.fileupload-ui.js"></script>
 <!-- The main application script -->
 <script src="plugins/jQuery-File-Upload-9.12.5/js/main.js"></script>
+<script>
+
+function handleUserData( data )
+{
+	var schools = [];
+	var countries = []
+	
+	$.each(data, function(i, val){
+		schools[i] = val['user_school'];
+		countries[i] = val['user_country'];
+	});
+   console.log(data);
+   $.each(schools, function(index, school){
+	  $('#country').append('<option>' + school + '</option>'); 
+
+  });
+}
+
+var student_data;
+
+function handleStudData( data )
+{
+	var countries = [];
+	var students = [];
+	student_data = data;
+	$.each(data, function(i, val){
+		students[i] = val['name'];
+		student_data[ val['name'] ] = val['story'];
+	});
+   
+   $.each(students, function(i, val){
+	  $('#students').append('<option>' + val + '</option>'); 
+
+  });
+}
+
+function strTo_ul( str, id )
+{
+	var split = str.split(',');
+	var cList = $('ul[id="'+ id + '"]' );
+	$.each(split, function(i)
+	{
+		var li = $('<li/>')
+			.addClass('ui-menu-item')
+			.attr('role', 'menuitem')
+			.text(split[i])
+			.appendTo(cList);
+		
+	});
+}
+
+function getUserData( callback )
+{
+  var tosend = "submit=getUserData";
+  $.ajax({
+  type: "GET",
+  url: "backend.php",
+  data: tosend,
+  success: function( data ){ callback( data );},
+  dataType: 'json'
+  });
+}
+function getStudData( callback )
+{
+  tosend = "submit=getStudData";
+    $.ajax({
+  type: "GET",
+  url: "backend.php",
+  data: tosend,
+  success: function( data ){ callback( data );},
+  dataType: 'json',
+	error: function(xhr, ajaxOptions, thrownError) {
+	console.log(thrownError);}
+  });
+}
+
+$(document).ready(function(){
+	
+	getUserData( handleUserData );
+	getStudData( handleStudData );
+	$('#students').change(function(){
+		console.log(student_data[0]);
+		$('#story').text( student_data[ $(this).val() ] );
+	});
+	
+	$('#myTabs a').click(function (e) {
+	  e.preventDefault()
+	  $(this).tab('show')
+	});
+	
+});
+
+</script>
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
 <!--[if (gte IE 8)&(lt IE 10)]>
 <script src="plugins/jQuery-File-Upload-9.12.5/js/cors/jquery.xdr-transport.js"></script>

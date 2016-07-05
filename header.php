@@ -1,5 +1,13 @@
-<meta charset="UTF-8">
+<?php 
+	error_reporting(E_ALL);
+	include 'login_script.php';
+	
+?>
+<!DOCTYPE html>
+<html>
+
 <head>
+<meta charset="UTF-8">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/app.css">
 <link rel="stylesheet" type="text/css" href="plugins/bootstrap/css/bootstrap.min.css">
@@ -51,25 +59,32 @@
 				<li>
 					 <div class="row">
 							<div class="col-md-12">
-								 <form class="form-signin form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
-										<div class="form-group">
-											 <label class="sr-only" for="user_name">Email address</label>
-											 <input type="email" class="form-control" id="user_name" placeholder="Email address" required>
+							 <?php
+								if(isset($_SESSION['user_is_logged_in']))
+								{	echo 'Hello ' . $_SESSION['user_name'] . ', ' . $_SESSION['user_country'] . 'you are logged in.<br/><br/>';
+									echo '<a href="admin.php"><button name="admin"   class="btn btn-info">Admin panel</button></a>';
+									echo '<a id="logout" href="index.php?action=logout">Log out</a>';
+								}
+								else{
+								echo '<form  class="form-signin form" role="form" method="post" action="admin.php" accept-charset="UTF-8" id="login-nav" name="loginform">
+										<div class="control-group">
+											<label class="control-label" for="login">Login:</label>
+											<div class="controls">
+												<input size="50" name="user_name" id="login_input_username" value="" type="text" class="form-control" placeholder="Login" required autofocus>
+											</div>
 										</div>
-										<div class="form-group">
-											 <label class="sr-only" for="password">Password</label>
-											 <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-                                             <div class="help-block text-right"><a href="">Forgot password ?</a></div>
+										<div class="control-group">
+											<label class="control-label" for="password">Password:</label>
+											<div class="controls">
+												<input size="50" name="user_password" id="login_input_password" value="" type="password" class="form-control" placeholder="Password">
+											</div>
 										</div>
-										<div class="form-group">
-											 <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-										</div>
-										<div class="checkbox">
-											 <label>
-											 <input type="checkbox"> keep me logged-in
-											 </label>
-										</div>
-								 </form>
+										<label class="">
+											<input type="checkbox" name="save" value="">Remember me</label>
+										   <button name="login"  value="" type="submit" class="btn btn-large btn-primary btn-block">Sign in</button>
+								 </form>';
+								}
+									?>
 							</div>
 					 </div>
 				</li>
@@ -81,7 +96,10 @@
 </nav>
 
 <script type="text/javascript" >
-
+function redirect() {
+  window.location.replace("admin.php");
+  return false;
+}
 $(document).ready(function () {
     jQuery.validator.addMethod("lettersonly", function (value, element) {
         return this.optional(element) || /^[a-z0-9_-]+$/i.test(value);

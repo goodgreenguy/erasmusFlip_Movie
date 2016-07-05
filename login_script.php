@@ -7,7 +7,7 @@
  * This project includes a compatibility file to make these functions available in PHP 5.3.7+ and PHP 5.4+.
  *
  * @author Panique
- * @link https://github.com/panique/php-login-one-file/
+ * @link https://github.com/panique		php-login-one-file/
  * @license http://opensource.org/licenses/MIT MIT License
  */
 class OneFileLoginApplication
@@ -19,7 +19,7 @@ class OneFileLoginApplication
     /**
      * @var string Path of the database file (create this with _install.php)
      */
-    private $db_sqlite_path = "../creds.sqlite3";
+    private $db_sqlite_path = "./cred_info.sqlite3";
     /**
      * @var object Database connection
      */
@@ -53,7 +53,7 @@ class OneFileLoginApplication
         if (version_compare(PHP_VERSION, '5.3.7', '<')) {
             echo "Sorry, Simple PHP Login does not run on a PHP version older than 5.3.7 !";
         } elseif (version_compare(PHP_VERSION, '5.5.0', '<')) {
-            require_once("ajax/password_compatibility_library.php");
+            require_once("libraries/password_compatibility_library.php");
             return true;
         } elseif (version_compare(PHP_VERSION, '5.5.0', '>=')) {
             return true;
@@ -107,7 +107,7 @@ class OneFileLoginApplication
     {
         if (isset($_GET["action"]) && $_GET["action"] == "logout") {
             $this->doLogout();
-            header("Location: login_script.php");
+            header("Location: index.php");
         } elseif (!empty($_SESSION['user_name']) && ($_SESSION['user_is_logged_in'])) {
             $this->doLoginWithSessionData();
         } elseif (isset($_POST["login"])) {
@@ -120,7 +120,7 @@ class OneFileLoginApplication
      */
     private function doStartSession()
     {
-        session_start();
+        if(session_status() == PHP_SESSION_NONE) session_start();
     }
     /**
      * Set a marker (NOTE: is this method necessary ?)
@@ -160,6 +160,7 @@ class OneFileLoginApplication
         if ($this->checkRegistrationData()) {
             if ($this->createDatabaseConnection()) {
                 $this->createNewUser();
+				//header('location: admin.php');
             }
         }
         // default return
@@ -188,7 +189,7 @@ class OneFileLoginApplication
     private function checkPasswordCorrectnessAndLogin()
     {
         // remember: the user can log in with username or email address
-        $sql = 'SELECT user_name, user_email, user_password_hash
+        $sql = 'SELECT user_name, user_email, user_password_hash, user_country, user_school, secret
                 FROM users
                 WHERE user_name = :user_name OR user_email = :user_name
                 LIMIT 1';
@@ -208,6 +209,9 @@ class OneFileLoginApplication
                 // write user data into PHP SESSION [a file on your server]
                 $_SESSION['user_name'] = $result_row->user_name;
                 $_SESSION['user_email'] = $result_row->user_email;
+				$_SESSION['user_country'] = $result_row->user_country;
+                $_SESSION['user_school'] = $result_row->user_school;
+				$_SESSION['secret'] = $result_row->secret;
                 $_SESSION['user_is_logged_in'] = true;
                 $this->user_is_logged_in = true;
                 return true;
@@ -239,6 +243,7 @@ class OneFileLoginApplication
             && strlen($_POST['user_email']) <= 64
             && filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL)
             && !empty($_POST['user_password_new'])
+			&& strlen($_POST['user_password_new']) >= 6
             && !empty($_POST['user_password_repeat'])
             && ($_POST['user_password_new'] === $_POST['user_password_repeat'])
         ) {
@@ -276,7 +281,9 @@ class OneFileLoginApplication
     {
         // remove html code etc. from username and email
         $user_name = htmlentities($_POST['user_name'], ENT_QUOTES);
-        $user_email = htmlentities($_POST['user_email'], ENT_QUOTES);
+		$user_email = htmlentities($_POST['user_email'], ENT_QUOTES);
+		$user_country = htmlentities($_POST['user_country'], ENT_QUOTES);
+		$user_school = htmlentities($_POST['user_school'], ENT_QUOTES);
         $user_password = $_POST['user_password_new'];
         // crypt the user's password with the PHP 5.5's password_hash() function, results in a 60 char hash string.
         // the constant PASSWORD_DEFAULT comes from PHP 5.5 or the password_compatibility_library
@@ -285,6 +292,8 @@ class OneFileLoginApplication
         $query = $this->db_connection->prepare($sql);
         $query->bindValue(':user_name', $user_name);
         $query->bindValue(':user_email', $user_email);
+		$query->bindValue(':user_country', $user_country);
+		$query->bindValue(':user_school', $user_school);
         $query->execute();
         // As there is no numRows() in SQLite/PDO (!!) we have to do it this way:
         // If you meet the inventor of PDO, punch him. Seriously.
@@ -292,12 +301,15 @@ class OneFileLoginApplication
         if ($result_row) {
             $this->feedback = "Sorry, that username / email is already taken. Please choose another one.";
         } else {
-            $sql = 'INSERT INTO users (user_name, user_password_hash, user_email)
-                    VALUES(:user_name, :user_password_hash, :user_email)';
+            $sql = 'INSERT INTO users (user_name, user_password_hash, user_email, user_country, user_school)
+                    VALUES(:user_name, :user_password_hash, :user_email, :user_country, :user_school)';
             $query = $this->db_connection->prepare($sql);
             $query->bindValue(':user_name', $user_name);
             $query->bindValue(':user_password_hash', $user_password_hash);
             $query->bindValue(':user_email', $user_email);
+			$query->bindValue(':user_country', $user_country);
+            $query->bindValue(':user_school', $user_school);
+
             // PDO's execute() gives back TRUE when successful, FALSE when not
             // @link http://stackoverflow.com/q/1661863/1114320
             $registration_success_state = $query->execute();
@@ -327,13 +339,12 @@ class OneFileLoginApplication
      */
     private function showPageLoggedIn()
     {
-        include("admin.php");
-        // if ($this->feedback) {
-            // echo $this->feedback . "<br/><br/>";
-        // }
-		// header('Location: ../index.php');
-       // echo 'Hello ' . $_SESSION['user_name'] . ', you are logged in.<br/><br/>';
-        // echo '<a href="' . $_SERVER['SCRIPT_NAME'] . '?action=logout">Log out</a>';
+       // include("admin.php");
+       if ($this->feedback) {
+           echo $this->feedback . "<br/><br/>";
+       }
+     //   echo 'Hello ' . $_SESSION['user_name'] . ', you are logged in.<br/><br/>';
+       //	  echo '<a href="' . $_SERVER['SCRIPT_NAME'] . '?action=logout">Log out</a>';
     }
 
     /**
@@ -346,7 +357,7 @@ class OneFileLoginApplication
          if ($this->feedback) {
             echo $this->feedback . "<br/><br/>";
         }
-      //  include("index.php");
+      //		  include("index.php");
 	}
  
 /*		echo '<div class="container">';
@@ -371,22 +382,7 @@ class OneFileLoginApplication
         if ($this->feedback) {
             echo $this->feedback . "<br/><br/>";
         }
-				echo '<link href = "plugins/bootstrap/bootstrap.min.css" rel = "stylesheet">';
-				echo '<link href = "css/style.css" rel = "stylesheet">';
-				echo '<link href="css/signin.css" rel="stylesheet">';
-				echo '<h2 align=center class="form-signin-heading">Registration</h2>';
-        echo '<p><form class="form-signin" method="post" action="' . $_SERVER['SCRIPT_NAME'] . '?action=register" name="registerform">';
-        echo '<p><div><label for="login_input_username">Username (only letters and numbers, 2 to 64 characters)</label><div>';
-        echo '<input class="form-control" id="login_input_username" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" required /></p>';
-        echo '<p><div><label for="login_input_email">User\'s email</label></div>';
-        echo '<input class="form-control" id="login_input_email" type="email" name="user_email" required /></p>';
-        echo '<p><div><label for="login_input_password_new">Password (min. 6 characters)</label><div>';
-        echo '<input  id="login_input_password_new" class="form-control login_input" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" /></p>';
-        echo '<p><div><label for="login_input_password_repeat">Repeat password</label><div>';
-        echo '<input  id="login_input_password_repeat" class="form-control login_input" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" /></p>';
-        echo '<input class="btn btn-lg  btn-block btn-primary" type="submit" name="register" value="Register" />';
-        echo '</form></p>';
-        echo '<p><a href="' . $_SERVER['SCRIPT_NAME'] . '">Homepage</a></p>';
+				
     }
 }
 // run the application

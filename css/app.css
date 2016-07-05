@@ -6,6 +6,7 @@ dy{
 
 #login-dp{
     min-width: 250px;
+    height: 214px;
     padding: 14px 14px 0;
     overflow:hidden;
     background-color:rgba(255,255,255,.8);
@@ -99,7 +100,8 @@ img.box_open{
 .box_whole{
     position: relative;
     top: initial;
-    font-size: 27;
+    font-size: 27px;
+	height: 350px;
 }
 
 .box_align{
@@ -108,8 +110,16 @@ img.box_open{
 
 .box_cover{
 	position: relative;
-    bottom: 20;
-    left: 20;
+    bottom: 20px;
+    left: 20px;
+}
+
+.box_text{
+	width: 160px;
+    font-size: smaller;
+    position: relative;
+    top: 30px;
+    left: 52px;
 }
 
 .box_cover_rotate{
@@ -140,19 +150,31 @@ img.box_open{
 
 .pop_text{
 	position: fixed;
-    top: 80;
-    left: 70;
-    font-size: 20;
+    top: 99px;
+    left: 70px;
+    font-size: 20px;
     width: inherit;
     height: inherit;
     word-wrap: break-word;
 }
 
+ul.cloud_list{
+	position: relative;
+    bottom: 350px;
+    left: 50px;
+    font-size: 20px;
+	overflow-y: auto;
+	word-wrap: break-word;
+	width: 300px;
+    height: 195px;
+}
+
 .cloud_title{
 	position: relative;
-    bottom: 350;
+	width: 392px;
+    bottom: 350px;
 	text-align: center;
-    font-size: 60;
+    font-size: 60px;
     font-family: cloudFont;
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 
 				 0 0 30px #fff, 0 0 40px #bbd3eb, 
@@ -195,10 +217,12 @@ img.box_open{
     margin: auto;
   position: fixed;
   top: 0; left: 0; bottom: 0; right: 0;
-	font-size: 30;
+	font-size: 30px;
 	color: white;
 
 }
+
+
 
 .pen_txt{
 	
@@ -234,45 +258,82 @@ div.stretchy-wrapper > div {
 
 .note_title{
     position: relative;
-    right: 30;
+    right: 30px;
     word-wrap: break-word;
-    font-size: 20;
+    font-size: 20px;
     text-align: center;
 }
 
 .note{
     position: relative;
-    bottom: 200;
+    bottom: 200px;
     height: inherit;
-    text-indent: 30;
+    text-indent: 30px;
     word-wrap: break-word;
-    font-size: 15;
+    font-size: 15px;
     overflow-y: auto;
 }
 
 .note_text{
-	height: 100;
+	height: 100px;
     width: 174px;
     word-wrap: break-word;
     font-size: 13px;
     overflow-y: auto;
     position: relative;
     left: 39px;
-    bottom: 13;
+    bottom: 13px;
     line-height: normal;
 }
 
 li.note_whole{
-	height: 250;
+	height: 250px;
 }
 
 .inline{
 	    display: inline-block;
 }
 
-.upload_f{
-	
+.sel_all{
+	position: relative;
+	top: 2px;
+	left: 4px;
 }
+
+.balloon{
+  left: 360px; 
+  box-shadow:inset 10px 10px 10px darken(@gps-purple, 10%); 
+   -webkit-animation:balloon1 5s ease-in-out infinite;
+  -moz-animation:balloon1 5s ease-in-out infinite;
+  -o-animation:balloon1 5s ease-in-out infinite;
+  animation:balloon1 5s ease-in-out infinite;
+  &:before { 
+   color: @gps-purple ;
+  }
+
+}
+
+/*BALLOON 1 4*/
+@-webkit-keyframes balloon1 {
+  0%,100%{ -webkit-transform:translateY(0) rotate(-6deg);}
+  50%{ -webkit-transform:translateY(-20px) rotate(8deg); }
+}
+@-moz-keyframes balloon1 {
+  0%,100%{ -moz-transform:translateY(0) rotate(-6deg);}
+  50%{ -moz-transform:translateY(-20px) rotate(8deg); }
+}
+@-o-keyframes balloon1 {
+  0%,100%{ -o-transform:translateY(0) rotate(-6deg);}
+  50%{ -o-transform:translateY(-20px) rotate(8deg); }
+}
+@keyframes balloon1 {
+  0%,100%{ transform:translateY(0) rotate(-6deg);}
+  50%{ transform:translateY(-20px) rotate(8deg); }
+}
+
+
+
+
 
 /*
 ==============================================
