@@ -82,8 +82,8 @@ dy{
 }
 
 img.box{
-	width:260px;
-	height:270px;
+	width:200px;
+	height:200px;
 	
 }
 
@@ -92,6 +92,10 @@ img.box_open{
     animation: mymove 2s ;
 	-webkit-animation-timing-function: ease;
 }
+
+
+
+
 .box_open{
 	-webkit-animation: mymove 2s ; /* Chrome, Safari, Opera */
     animation: mymove 2s ;
@@ -118,8 +122,9 @@ img.box_open{
 	width: 160px;
     font-size: smaller;
     position: relative;
-    top: 30px;
-    left: 52px;
+    top: 15px;
+    left: 15px;
+    text-align: center;
 }
 
 .box_cover_rotate{

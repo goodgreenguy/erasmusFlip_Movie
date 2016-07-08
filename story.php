@@ -92,7 +92,7 @@ include 'backend.php';
 									  </select>
 									</div>
 									<div	 class="col-sm-3">
-									  <select name="stud_class_lt" class="col-md-1  	col-sm-1 form-control" id="stud_class_lt"  required>
+									  <select name="stud_class_lt" class="col-md-1 col-sm-1 form-control" id="stud_class_lt"  required>
 										  <option>A</option>
 										  <option>B</option>
 										  <option>C</option>
@@ -102,7 +102,9 @@ include 'backend.php';
 										  <option>G</option>
 									  </select>
 									</div>
-									<input name="stud_class" class="form-control" id="stud_class" readonly >
+									<div class="col-md-2 col-sm-2">
+									<input name="stud_class" class="col-md-1 col-sm-1 form-control" id="stud_class" readonly >
+									</div>
 								</div>
 								</div>
 								<br/>

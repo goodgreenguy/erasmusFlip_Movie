@@ -62,8 +62,12 @@
 							 <?php
 								if(isset($_SESSION['user_is_logged_in']))
 								{	echo 'Hello ' . $_SESSION['user_name'] . ', ' . $_SESSION['user_country'] . 'you are logged in.<br/><br/>';
-									echo '<a href="admin.php"><button name="admin"   class="btn btn-info">Admin panel</button></a>';
-									echo '<a id="logout" href="index.php?action=logout">Log out</a>';
+									echo '<div class="btn-group" role="group"><a href="admin.php"><button name="admin"class="btn btn-info">Admin panel</button></a>';
+									echo '<form class="form-signin form" role="form" method="post" >
+														<button class="btn btn-group btn-primary" formaction="admin.php?action=logout">Log Out</button>
+												</form>
+											</div>';
+									//echo '<a id="logout" href="index.php?action=logout">Log out</a>';
 								}
 								else{
 								echo '<form  class="form-signin form" role="form" method="post" action="admin.php" accept-charset="UTF-8" id="login-nav" name="loginform">
@@ -97,6 +101,7 @@
 
 <script type="text/javascript" >
 function redirect() {
+	setTimeout(200);
   window.location.replace("admin.php");
   return false;
 }

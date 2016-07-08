@@ -11,13 +11,15 @@
 	  <!--<div class="balloon"><img class="img img-responsive" src="img/logo.png"></div>-->
 
 	</div>
+	
+
 	<div class="row">
-		<div id="Characters" class="box_whole col-md-6 col-sm-7 ">
+		<div id="Characters" class="box_whole col-md-5 col-sm-7 ">
 			<!-- <img src="img/box_cover.png" class="box box_cover floating" alt="Character">
 			<img src="img/box_body.png" class="box box_align floating" alt="Character" > -->
 			<div class="floating">
 				<p class="box_text ">Characters</p>
-				<img src="img/box_whole.png" class="img img-responsive box box_align" alt="Characters" >
+				<img src="img/chest.png" class="img img-responsive box box_align" alt="Characters" >
 			</div>
 		</div>
 		<div id="Settings" class="box_whole col-md-6 col-sm-7 ">
@@ -25,19 +27,19 @@
 			<img src="img/box_body.png" class="box box_align floating" alt="Settings" > -->
 			<div class="floating">
 				<p class="box_text ">Settings</p>
-				<img src="img/box_whole.png" class="box box_align" alt="Settings" >
+				<img src="img/chest.png" class="box box_align" alt="Settings" >
 			</div>
 		</div>
 
 	</div>
 
 	<div class="row">
-		<div id="Plots" class="box_whole col-md-6 col-sm-7">
+		<div id="Plots" class="box_whole col-md-5 col-sm-7">
 			<!--  <img src="img/box_cover.png" class="box box_cover floating" alt="Plots">
 			<img src="img/box_body.png" class="box box_align floating" alt="Plots" > -->
 			<div class="floating">
 				<p class="box_text ">Plots</p>
-				<img src="img/box_whole.png" class="box box_align" alt="Plots" >
+				<img src="img/chest.png" class="box box_align" alt="Plots" >
 			</div>
 		</div>
 		
@@ -46,7 +48,7 @@
 			<img src="img/box_body.png" class="box box_align floating" alt="Endings" > -->
 			<div class="floating">
 				<p class="box_text ">Ends of Stories</p>
-				<img src="img/box_whole.png" class="box box_align" alt="Endings" >
+				<img src="img/chest.png" class="box box_align" alt="Endings" >
 			</div>
 		</div>
 	</div>
@@ -54,7 +56,7 @@
 		<div id="Mystery" class="box_whole col-md-6 col-sm-7">
 			<div class="floating">
 				<p class="box_text ">Mystery Box</p>
-				<img src="img/box_whole.png" class="box box_align" alt="Mystery" >
+				<img src="img/chest.png" class="box box_align" alt="Mystery" >
 			</div>
 			<!-- <img src="img/box_cover.png" class="box box_cover floating" alt="Mystery">
 			<img src="img/box_body.png" class="box box_align floating" alt="Mystery" > -->
@@ -190,8 +192,8 @@ $(document).ready(function(){
 			}
 			boxes_opened.push(this.id);			
 
-			$(this).find('img').fadeOut().remove();
-			$(this).find('p').fadeOut().remove();
+			$(this).find('img').remove();
+			$(this).find('p').remove();
 
 			$(this).append('<img src="img/cloud.png" class="bigEntrance" alt="' + this.id +'" >').addClass('tossing');
 			$(this).append('<p class="cloud_title">'+ this.id + '</p>');

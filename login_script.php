@@ -339,10 +339,10 @@ class OneFileLoginApplication
      */
     private function showPageLoggedIn()
     {
-       // include("admin.php");
        if ($this->feedback) {
            echo $this->feedback . "<br/><br/>";
        }
+	   
      //   echo 'Hello ' . $_SESSION['user_name'] . ', you are logged in.<br/><br/>';
        //	  echo '<a href="' . $_SERVER['SCRIPT_NAME'] . '?action=logout">Log out</a>';
     }

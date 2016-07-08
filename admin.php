@@ -27,7 +27,7 @@ include 'header.php';
 
 <div class="container">
 	
-  <h2>Dynamic Tabs</h2>
+  <h2>Hello <?php echo $_SESSION['user_name'];?>! Welcome to the StoryInventor management pages!</h2>
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home">Story review</a></li>
     <li><a data-toggle="tab" href="#menu2">Story Guidelines Import</a></li>
@@ -37,20 +37,27 @@ include 'header.php';
   <div class="tab-content">
  
     <div id="home" class="tab-pane fade in active">
-      <h3>Story review</h3>
+      <h3>Story review for <?php echo $_SESSION['user_school'] . ' from ' . $_SESSION['user_country'] ?></h3>
       <p>
-	  
-		<div class="form-group">
-		  <label for="country">Select Country:</label>
-		  <select class="form-control" id="country">
-		  </select>
+	  <div class="row">
+			<div class="col-md-3 form-group">
+			  <label for="country">Select Country:</label>
+			  <select class="form-control" id="country">
+			  </select>
+			</div>
+			<div class="col-md-3 form-group">
+			  <label for="st_class">Class</label>
+			  <select class="form-control" id="st_class">
+				<option> </option>
+			  </select>
+			</div>
+			<div class="col-md-3 form-group">
+			  <label for="country">Student:</label>
+			  <select class="form-control" id="students">
+				<option> </option>
+			  </select>
+			</div>
 		</div>
-		<div class="form-group">
-		  <label for="country">Student:</label>
-		  <select class="form-control" id="students">
-		  </select>
-		</div>
-		
 		<div class="panel panel-primary">
 			<div class="panel-body" id="story">
 			</div>
@@ -59,48 +66,18 @@ include 'header.php';
 	  </p>
     </div>
     <div id="menu2" class="tab-pane fade">
-      <h3>MStory Guidelines Import</h3>
+      <h3>Story Guidelines Import</h3>
+	  <p>Here you can upload CSV files containing story guidelines</p>
+	  <p><a href="#">Click here to download the template</a></p>
       <p>
-		<!-- The file upload form used as target for the file upload widget -->
-			<form id="fileupload" action="backend.php" method="POST" enctype="multipart/form-data">
-				<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-				<div class="row fileupload-buttonbar">
-					<div class="col-lg-7">
-						<!-- The fileinput-button span is used to style the file input field as button -->
-						<span class="btn btn-success fileinput-button">
-							<i class="glyphicon glyphicon-plus"></i>
-							<span>Add files...</span>
-							<input type="file" name="files[]" multiple>
-						</span>
-						<button type="submit" class="btn btn-primary start">
-							<i class="glyphicon glyphicon-upload"></i>
-							<span>Start upload</span>
-						</button>
-						<button type="reset" class="btn btn-warning cancel">
-							<i class="glyphicon glyphicon-ban-circle"></i>
-							<span>Cancel upload</span>
-						</button>
-						<button type="button" class="btn btn-danger delete">
-							<i class="glyphicon glyphicon-trash"></i>
-							<span>Delete</span>
-						</button>
-						<span id="sel_all" class="btn btn-primary">Select All  </span>
-						<input hidden type="checkbox" id="sel_chk" class="sel_all toggle">
-						<!-- The global file processing state -->
-						<span class="fileupload-process"></span>
-					</div>
-					<!-- The global progress state -->
-					<div class="col-lg-5 fileupload-progress fade">
-						<!-- The global progress bar -->
-						<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-							<div class="progress-bar progress-bar-success" style="width:0%;"></div>
-						</div>
-						<!-- The extended global progress state -->
-						<div class="progress-extended">&nbsp;</div>
-					</div>
+			<form action="csv.php" method="post" enctype="multipart/form-data">
+				<h3>Select CSV file to upload:</h3>
+				<div class="row">
+				   <label class="btn btn-primary"><input type="file" name="fileToUpload" id="fileToUpload" style="display: none;">Browse</label>
+					<label class="btn btn-info"><input type="submit" name="submit" style="display: none;">Upload</label>
+					<button class="btn btn-success" name="import">Import</button>
+					<p id="csv_file"></p>
 				</div>
-				<!-- The table listing the files available for upload/download -->
-				<table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
 			</form>
 	  
 	  </p>
@@ -154,10 +131,10 @@ include 'header.php';
   </div>
 
 	<div class="col-md-offset-3 col-md-3">
-	<form class="form-signin form" role="form" method="post" action="logout">
-			<a href="login_script.php?action=logout">LOUG Out</a><button class="btn btn-lg btn-primary">Log Out</button>
-	</form>
-</div>
+		<form class="form-signin form" role="form" method="post" >
+				<button class="btn btn-lg btn-primary" formaction="admin.php?action=logout">Log Out</button>
+		</form>
+	</div>
 
 <div class="col-md-3">
 <!-- Trigger the modal with a button -->
@@ -175,7 +152,7 @@ echo '
 		<div class="modal-content">
 		  <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<h4 class="modal-title">Modal Header</h4>
+			<h4 class="modal-title">New user Registration</h4>
 		  </div>
 		  <div class="modal-body">
 			
@@ -352,29 +329,39 @@ function handleUserData( data )
 		schools[i] = val['user_school'];
 		countries[i] = val['user_country'];
 	});
-   console.log(data);
    $.each(schools, function(index, school){
-	  $('#country').append('<option>' + school + '</option>'); 
-
+	 if( $('#'+school).text() != school )
+		$('#country').append('<option id="' + school + '">' + school + '</option>'); 
   });
 }
 
-var student_data;
+	var countries = [];
+	var students = [];
+	var st_class = [];
+	var st_story = [];
+	var student_data;
 
 function handleStudData( data )
 {
-	var countries = [];
-	var students = [];
 	student_data = data;
 	$.each(data, function(i, val){
 		students[i] = val['name'];
-		student_data[ val['name'] ] = val['story'];
+		st_class[i] = val['class'];
+		st_story[ val['name' ] ] = val['story']; // access story by student name
 	});
-   
-   $.each(students, function(i, val){
-	  $('#students').append('<option>' + val + '</option>'); 
+    
 
+  $.each(st_class, function(i, val){
+	  if( $('#'+val).text() != val )
+		$('#st_class').append('<option id="' + val + '">' + val + '</option>'); //add option if not already present
+	  	
   });
+	  
+   $.each(students, function(i, value){
+		if( student_data[i].class ==  $('#st_class').val() )
+			$('#students').append('<option>' + value + '</option>');
+	});
+
 }
 
 function strTo_ul( str, id )
@@ -417,20 +404,57 @@ function getStudData( callback )
   });
 }
 
+function assign_st(  )
+{
+	console.log();
+		
+}
+
 $(document).ready(function(){
 	
 	getUserData( handleUserData );
 	getStudData( handleStudData );
+	
 	$('#students').change(function(){
-		console.log(student_data[0]);
-		$('#story').text( student_data[ $(this).val() ] );
+		$('#story').text( st_story[ $(this).val() ] );
 	});
+	
+	$('#st_class').change(function(){
+			
+
+		$('#students').change();
+		//$('#story').text( st_story[ $('#students').val() ] );
+	});
+
 	
 	$('#myTabs a').click(function (e) {
 	  e.preventDefault()
 	  $(this).tab('show')
 	});
 	
+	 $('#st_class').change(function(){
+		 $('#students').find( 'option' ).remove();
+		$.each( students, function(i, value){ 
+			if( student_data[i].class ==  $('#st_class').val())
+				$('#students').append('<option>' + value + '</option>');
+		});
+		 
+	 });
+	 
+	 $(':file').on('fileselect', function(event, numFiles, label) {
+		
+		$('#csv_file').text(label);
+	 
+         /*  var input = $(this).parents('.input-group').find(':text'),
+              log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+          if( input.length ) {
+              input.val(log);
+          } else {
+              if( log ) alert(log);
+          } */
+
+      });
 });
 
 </script>

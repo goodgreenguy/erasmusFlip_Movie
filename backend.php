@@ -114,7 +114,7 @@ if (isset($_GET["submit"]) )
 }
 else
 {
-	echo 'Sub: '. $submit;
+	//echo 'Sub: '. $submit;
 }
 if (isset($_GET["action"]) && $_GET["action"] == "submit_story")  
 {
@@ -143,5 +143,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "submit_story")
 		$exc = $e->getMessage();
 	}
 }
+
+
 
 ?>
