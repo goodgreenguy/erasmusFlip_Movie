@@ -11,28 +11,45 @@
 	</div>
 	<div id="app">
 		<img class="island img-responsive" src="img/island_cl.png">
-		<div id="waves1">
+		<div class="waves waves1">
+			<img class=" floating img-responsive" src="img/waves3.png">
 		</div>
-		<div>
-			<div id="Characters" class="inline floating">
+		<div class="waves waves2">
+			<img class=" floating img-responsive" src="img/waves3.png">
+		</div>
+		<div class="waves waves3">
+			<img class=" floating img-responsive" src="img/waves3.png">
+		</div>
+		<div class="waves waves4">
+			<img class=" floating img-responsive" src="img/waves3.png">
+		</div>
+		<div class="waves waves5">
+			<img class=" floating img-responsive" src="img/waves3.png">
+		</div>
+				<div class="waves waves6">
+			<img class=" floating img-responsive" src="img/waves3.png">
+		</div>
+		<div class="row">
+			<div id="Characters" class="inline tossing col-md-4 col-sm-4 col-xs-4">
+				<p class="box_text ">Characters</p>
 				<img src="img/chest.png" id="chars" class="box chars" alt="Characters" >
-<!-- 				<p class="box_text ">Characters</p>
- -->			</div>
-			<div id="Settings" class="inline floating">
-<!-- 				<p class="box_text ">Settings</p>
- -->				<img src="img/chest.png" id="set" class="box set" alt="Settings" >
 			</div>
-			<div id="Plots" class="inline floating">
-<!-- 				<p class="box_text plots">Plots</p>
- -->				<img src="img/chest.png" id="plot" class="box plot" alt="Plots" >
+			<div id="Settings" class="inline tossing col-md-4 col-sm-4 col-xs-4">
+				<p class="box_text ">Settings</p>
+				<img src="img/chest.png" id="set" class="box set" alt="Settings" >
+			</div>
+			<div id="Plots" class="inline tossing col-md-4 col-sm-4 col-xs-4">
+				<p class="box_text plots">Plots</p>
+				<img src="img/chest.png" id="plot" class="box plot" alt="Plots" >
 			</div>
 		</div>
-		<div>
-			<div id="Ends of Stories" class="inline floating">
+		<div class="row">
+			<div class="col-md-2 col-sm-2 col-xs-2"></div>
+			<div id="Ends of Stories" class="inline front tossing col-md-4 col-sm-4 col-xs-4">
 				<p class="box_text ">Ends of Stories</p>
 				<img src="img/chest.png" id="ends" class="box ends" alt="Endings" >
 			</div>
-			<div id="Mystery" class="inline floating">
+			<div id="Mystery" class="inline front tossing col-md-4 col-sm-4 col-xs-4">
 				<p class="box_text ">Mystery Box</p>
 				<img src="img/chest.png" id="myst" class="box myst" alt="Mystery" >
 			</div>
@@ -143,7 +160,7 @@ $(document).ready(function(){
 	var boxes_opened = [];
 	var effect ="";
 	var pen_active = false;
-	$(".floating").click(function(){
+	$(".tossing").click(function(){
 		var cloud_text = "";
 		var cookie_exp = 0.0007;
 		if( $.inArray( this.id, boxes_opened) == -1 ) // disable multiple cloud spawn 

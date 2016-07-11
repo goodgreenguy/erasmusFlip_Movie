@@ -89,8 +89,8 @@ dy{
 img.box{
 	max-width:40%;
     height: auto;
-	bottom: 335%;
-	left: 110%;
+//	bottom: 335%;
+//	left: 110%;
 }
 
 img.cloud{
@@ -98,29 +98,27 @@ img.cloud{
 }
 
 .chars{
-	position: absolute;
+	//position: absolute;
 }
 .set{
-	position: absolute;
+	//position: absolute;
     margin-left: 20%;
 }
 
 .plot{
-	position: absolute;
+	//position: absolute;
     margin-left: 20%;
 }
 
 .ends{
-	position: absolute;
-    top: 200%;
-    left: 40%;
+	z-index: 2;
 }
 .myst{
-	position: absolute;
-    top: 200%;
-    left: 80%;
+	z-index: 2;
 }
-
+.front{
+	z-index: 2;
+}
 
 img.box_open{
 	-webkit-animation: mymove 2s ; /* Chrome, Safari, Opera */
@@ -141,22 +139,46 @@ img.box_open{
     z-index: -100;
     height: 100%;
     width: 100%;
-    left: 0px;
-	top: -100px;
+    height: auto;
+
 }
 
-#waves1{
-	
-	
+.waves{
+	    position: absolute;
+    height: 100%;
+    width: 100%;
+    height: auto;
+	opacity: 0.85;
 }
 
-#waves1 img{
-	position: fixed;
-    top: 489px;
-    opacity: 0.8;
-    left: 100px;
-    width: 110%;
+.waves1{
+	top: 50%;
+    z-index: -50;
+
 }
+.waves2{
+	top: 60%;
+    z-index: -50;
+}
+.waves3	{
+	top: 70%;
+    z-index: 1;
+}
+.waves4{
+	top: 80%;
+    z-index: 1;
+
+}
+.waves5{
+	top: 60%;
+    z-index: -50;
+}
+.waves6	{
+    top: 90%;
+    z-index: 3;
+}
+
+
 
 .box_open{
 	-webkit-animation: mymove 2s ; /* Chrome, Safari, Opera */
@@ -181,12 +203,13 @@ img.box_open{
 }
 
 .box_text{
-	width: 160px;
-    font-size: smaller;
+	width: 93%;
+    font-size: large;
     position: relative;
-    //top: 15px;
-    left: 15px;
+    left: -17%;
+    top: 72%;
     text-align: center;
+    z-index: -100;
 }
 
 .box_cover_rotate{
@@ -226,9 +249,9 @@ img.box_open{
 }
 
 ul.cloud_list{
-    position: absolute;
+	position: absolute;
     top: 16%;
-    left: 2%;
+    left: 5%;
     font-size: 86%;
     overflow-y: auto;
     word-wrap: break-word;
@@ -238,12 +261,12 @@ ul.cloud_list{
 
 .cloud_title{
     position: absolute;
-    top: -25%;
-    right: 19%;
+    top: -29%;
+    right: -10%;
     width: 392px;
-    bottom: 350px;
+    /* bottom: 350px; */
     text-align: center;
-    font-size: 400%;
+    font-size: 251%;
     font-family: cloudFont;
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 
 				 0 0 30px #fff, 0 0 40px #bbd3eb, 
@@ -308,6 +331,7 @@ ul.cloud_list{
     top: 0;
     vertical-align: middle;
     width: 100%;
+	z-index: 10;
 }
 
 div.stretchy-wrapper {
@@ -370,8 +394,7 @@ li.note_whole{
 }
 
 .balloon{
-  left: 360px; 
-  box-shadow:inset 10px 10px 10px darken(@gps-purple, 10%); 
+   box-shadow:inset 10px 10px 10px darken(@gps-purple, 10%); 
    -webkit-animation:balloon1 5s ease-in-out infinite;
   -moz-animation:balloon1 5s ease-in-out infinite;
   -o-animation:balloon1 5s ease-in-out infinite;
@@ -385,19 +408,19 @@ li.note_whole{
 /*BALLOON 1 4*/
 @-webkit-keyframes balloon1 {
   0%,100%{ -webkit-transform:translateY(0) rotate(-6deg);}
-  50%{ -webkit-transform:translateY(-20px) rotate(8deg); }
+  50%{ -webkit-transform:translateY(-10px) rotate(8deg); }
 }
 @-moz-keyframes balloon1 {
   0%,100%{ -moz-transform:translateY(0) rotate(-6deg);}
-  50%{ -moz-transform:translateY(-20px) rotate(8deg); }
+  50%{ -moz-transform:translateY(-10px) rotate(8deg); }
 }
 @-o-keyframes balloon1 {
   0%,100%{ -o-transform:translateY(0) rotate(-6deg);}
-  50%{ -o-transform:translateY(-20px) rotate(8deg); }
+  50%{ -o-transform:translateY(-10px) rotate(8deg); }
 }
 @keyframes balloon1 {
   0%,100%{ transform:translateY(0) rotate(-6deg);}
-  50%{ transform:translateY(-20px) rotate(8deg); }
+  50%{ transform:translateY(-10px) rotate(8deg); }
 }
 
 
