@@ -38,6 +38,7 @@ include 'header.php';
  
     <div id="home" class="tab-pane fade in active">
       <h3>Story review for <?php echo $_SESSION['user_school'] . ' from ' . $_SESSION['user_country'] ?></h3>
+	  <h4>Secret word: <?php echo $_SESSION['secret'] ?></h4>
       <p>
 	  <div class="row">
 			<div class="col-md-3 form-group">
@@ -70,7 +71,7 @@ include 'header.php';
 	  <p>Here you can upload CSV files containing story guidelines</p>
 	  <p><a href="#">Click here to download the template</a></p>
       <p>
-			<form action="csv.php" method="post" enctype="multipart/form-data">
+			<form action="csv.php" method="post" enctype="multipart/form-data" target="formInfo">
 				<h3>Select CSV file to upload:</h3>
 				<div class="row">
 				   <label class="btn btn-primary"><input type="file" name="fileToUpload" id="fileToUpload" style="display: none;">Browse</label>
@@ -79,8 +80,9 @@ include 'header.php';
 					<p id="csv_file"></p>
 				</div>
 			</form>
-	  
-	  </p>
+	   </p>
+	   	  <iframe name="formInfo">
+			</iframe>
     </div>
     <div id="menu3" class="tab-pane fade">
       <h3>Image upload</h3>

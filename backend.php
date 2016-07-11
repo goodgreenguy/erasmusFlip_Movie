@@ -66,6 +66,7 @@ if (isset($_GET["submit"]) )
 			$user_name[ $i ] =  $row['user_name'];
 			$user_email[ $i ] =  $row['user_email'];
 			$user_country[ $i ] =  $row['user_country'];
+			$user_school[ $i ] =  $row['secret'];
 			$user_school[ $i ] =  $row['user_school'];
 		}
 		
@@ -103,8 +104,7 @@ if (isset($_GET["submit"]) )
 		foreach( $student_data as $row ) 
 		{
 			$stud_name[ $i ] =  $row['name'];
-			$stud_country[ $i ] =  $row['country'];
-			$stud_school[ $i ] =  $row['school'];
+			$stud_grade[ $i ] =  $row['grade'];
 			$stud_class[ $i ] =  $row['class'];
 			$stud_story[ $i ] =  $row['story'];
 		}

@@ -1,68 +1,43 @@
 <?php  
 	include 'header.php';
 ?>
-<body>
+<body class="back">
 <div class="container">
 	<div class="row">
 		<h1>STORYINVENTOR</h1>
 		<h3>Educational game</h3>
 		</br>
 		</br>
-	  <!--<div class="balloon"><img class="img img-responsive" src="img/logo.png"></div>-->
-
 	</div>
-	
-
-	<div class="row">
-		<div id="Characters" class="box_whole col-md-5 col-sm-7 ">
-			<!-- <img src="img/box_cover.png" class="box box_cover floating" alt="Character">
-			<img src="img/box_body.png" class="box box_align floating" alt="Character" > -->
-			<div class="floating">
-				<p class="box_text ">Characters</p>
-				<img src="img/chest.png" class="img img-responsive box box_align" alt="Characters" >
+	<div id="app">
+		<img class="island img-responsive" src="img/island_cl.png">
+		<div id="waves1">
+		</div>
+		<div>
+			<div id="Characters" class="inline floating">
+				<img src="img/chest.png" id="chars" class="box chars" alt="Characters" >
+<!-- 				<p class="box_text ">Characters</p>
+ -->			</div>
+			<div id="Settings" class="inline floating">
+<!-- 				<p class="box_text ">Settings</p>
+ -->				<img src="img/chest.png" id="set" class="box set" alt="Settings" >
+			</div>
+			<div id="Plots" class="inline floating">
+<!-- 				<p class="box_text plots">Plots</p>
+ -->				<img src="img/chest.png" id="plot" class="box plot" alt="Plots" >
 			</div>
 		</div>
-		<div id="Settings" class="box_whole col-md-6 col-sm-7 ">
-			<!-- <img src="img/box_cover.png" class="box box_cover floating" alt="Settings">
-			<img src="img/box_body.png" class="box box_align floating" alt="Settings" > -->
-			<div class="floating">
-				<p class="box_text ">Settings</p>
-				<img src="img/chest.png" class="box box_align" alt="Settings" >
-			</div>
-		</div>
-
-	</div>
-
-	<div class="row">
-		<div id="Plots" class="box_whole col-md-5 col-sm-7">
-			<!--  <img src="img/box_cover.png" class="box box_cover floating" alt="Plots">
-			<img src="img/box_body.png" class="box box_align floating" alt="Plots" > -->
-			<div class="floating">
-				<p class="box_text ">Plots</p>
-				<img src="img/chest.png" class="box box_align" alt="Plots" >
-			</div>
-		</div>
-		
-		<div id="Ends of Stories" class="box_whole col-md-6 col-sm-7">
-			<!-- <img src="img/box_cover.png" class="box box_cover floating" alt="Endings">
-			<img src="img/box_body.png" class="box box_align floating" alt="Endings" > -->
-			<div class="floating">
+		<div>
+			<div id="Ends of Stories" class="inline floating">
 				<p class="box_text ">Ends of Stories</p>
-				<img src="img/chest.png" class="box box_align" alt="Endings" >
+				<img src="img/chest.png" id="ends" class="box ends" alt="Endings" >
 			</div>
-		</div>
-	</div>
-	<div class="row mystery">
-		<div id="Mystery" class="box_whole col-md-6 col-sm-7">
-			<div class="floating">
+			<div id="Mystery" class="inline floating">
 				<p class="box_text ">Mystery Box</p>
-				<img src="img/chest.png" class="box box_align" alt="Mystery" >
+				<img src="img/chest.png" id="myst" class="box myst" alt="Mystery" >
 			</div>
-			<!-- <img src="img/box_cover.png" class="box box_cover floating" alt="Mystery">
-			<img src="img/box_body.png" class="box box_align floating" alt="Mystery" > -->
 		</div>
 	</div>
-
 </div>
 
 <script type="text/javascript" >
@@ -153,8 +128,11 @@ $.fn.animateRotate = function(angle, duration, easing, complete) {
 function pen()
 {
 	$("body").append('<div id="pen" class="pendiv fadeIn"></div>');
-	$('#pen').append('<div id="link" class="hidden"><a href="story.php"><img src="img/pen.png" class="pen img-responsive" style="transform: rotate(-40deg);"><p class="pen">Click Here to Start Writing!</p></a></div>');
+	$('#pen').append('<div id="link" class="hidden"><div class="row"><a href="story.php"><img src="img/pen.png" class="pen img-responsive" style="transform: rotate(-40deg);"><p class="pen">Click The Pencil to Start Writing!</p></a>\
+	<a href="."><p class="pen pen_try">Or try again...</p></a></div></div>');
+	$('#pen').append('');
 	$('#link').removeClass('hidden').fadeIn();
+
 }
 $(document).ready(function(){
 	
@@ -165,7 +143,7 @@ $(document).ready(function(){
 	var boxes_opened = [];
 	var effect ="";
 	var pen_active = false;
-	$(".box_whole").click(function(){
+	$(".floating").click(function(){
 		var cloud_text = "";
 		var cookie_exp = 0.0007;
 		if( $.inArray( this.id, boxes_opened) == -1 ) // disable multiple cloud spawn 
@@ -195,7 +173,7 @@ $(document).ready(function(){
 			$(this).find('img').remove();
 			$(this).find('p').remove();
 
-			$(this).append('<img src="img/cloud.png" class="bigEntrance" alt="' + this.id +'" >').addClass('tossing');
+			$(this).append('<img src="img/cloud.png" class="bigEntrance cloud" alt="' + this.id +'" >').addClass('tossing');
 			$(this).append('<p class="cloud_title">'+ this.id + '</p>');
 
 			$(this).append('<ul class="cloud_list" id="' + this.id + '"></ul>');

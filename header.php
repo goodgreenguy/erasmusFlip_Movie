@@ -8,6 +8,8 @@
 
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/app.css">
 <link rel="stylesheet" type="text/css" href="plugins/bootstrap/css/bootstrap.min.css">
@@ -37,7 +39,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="https://www.facebook.com/Erasmus-Flip-Movie-O%C5%A0-Bartul-Ka%C5%A1i%C4%87-242844366101408/"><img class="img-responsive" src="img/FB-f-Logo__blue_29.png" style="width: 70%;"></img></a></li>
+        <li class=""><a href="https://www.facebook.com/Erasmus-Flip-Movie-O%C5%A0-Bartul-Ka%C5%A1i%C4%87-242844366101408/"><img class="img-responsive" src="img/FB-f-Logo__blue_29.png" style="width: 70%;"></img></a></li>
         <li><a href="#">Link</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
