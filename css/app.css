@@ -81,6 +81,23 @@ dy{
 		}
 }
 
+.fb_logo{
+	width: 60%;
+}
+
+.page_title{
+    position: absolute;
+    top: 1%;
+    left: 31%;
+    text-align: center;
+    font-size: 5vw;
+    font-family: cloudFont;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 
+				 0 0 30px #fff, 0 0 40px #bbd3eb, 
+				 0 0 70px #bacfeb, 0 0 80px #caddf0, 
+				 0 0 100px #cedff1, 0 0 150px #bbd0eb;
+}
+
 #app{
 	position:relative;
     width: 100%;
@@ -144,7 +161,7 @@ img.box_open{
 }
 
 .waves{
-	    position: absolute;
+	position: absolute;
     height: 100%;
     width: 100%;
     height: auto;
@@ -157,24 +174,24 @@ img.box_open{
 
 }
 .waves2{
-	top: 60%;
-    z-index: -50;
+	top: 67%;
+    z-index: -49;
 }
 .waves3	{
-	top: 70%;
+	top: 74%;
     z-index: 1;
 }
 .waves4{
-	top: 80%;
+	top: 83%;
     z-index: 1;
 
 }
 .waves5{
-	top: 60%;
+	top: 58%;
     z-index: -50;
 }
 .waves6	{
-    top: 90%;
+    top: 93%;
     z-index: 3;
 }
 
@@ -185,6 +202,14 @@ img.box_open{
     animation: mymove 2s ;
 	-webkit-animation-timing-function: ease;
 }
+
+.box_cover_rotate{
+	-webkit-animation-name: cover_rot; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 2s; /* Chrome, Safari, Opera */
+    animation-name: cover_rot;
+    animation-duration: 2s;
+}
+
 .box_whole{
     position: relative;
     top: initial;
@@ -203,20 +228,18 @@ img.box_open{
 }
 
 .box_text{
-	width: 93%;
-    font-size: large;
+    width: 45%;
+    font-size: 1.5vw;
     position: relative;
-    left: -17%;
+    left: -5%;
     top: 72%;
     text-align: center;
     z-index: -100;
+    background: white;
 }
 
-.box_cover_rotate{
-	-webkit-animation-name: cover_rot; /* Chrome, Safari, Opera */
-    -webkit-animation-duration: 2s; /* Chrome, Safari, Opera */
-    animation-name: cover_rot;
-    animation-duration: 2s;
+.boxes_off{
+	padding-left: 5%;
 }
 
 .mystery{
@@ -262,11 +285,12 @@ ul.cloud_list{
 .cloud_title{
     position: absolute;
     top: -29%;
-    right: -10%;
-    width: 392px;
+    left: 21%;
+    /* width: 392px; */
     /* bottom: 350px; */
     text-align: center;
-    font-size: 251%;
+    /*font-size: 251%;*/
+	font-size: 3.2vw;
     font-family: cloudFont;
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 
 				 0 0 30px #fff, 0 0 40px #bbd3eb, 
@@ -282,6 +306,8 @@ ul.cloud_list{
 #welcome{
     font-size: xx-large;
 }
+
+
 
 .story_input{
 	border: 1px solid #EEEEEE;
@@ -309,15 +335,15 @@ ul.cloud_list{
     margin: auto;
 	position: fixed;
 	top: 0; left: 0; bottom: 0; right: 0;
-	font-size: 30px;
+	font-size: x-large;
 	color: white;
 }
 
 
 
 .pen_try{
-    top: 580px;
-    left: 500px;
+    top: 77%;
+    left: 60%;	
 }
 
 .pendiv{

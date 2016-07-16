@@ -3,14 +3,10 @@
 ?>
 <body class="back">
 <div class="container">
-	<div class="row">
-		<h1>STORYINVENTOR</h1>
-		<h3>Educational game</h3>
-		</br>
-		</br>
-	</div>
 	<div id="app">
+		<span class="page_title">STORYINVENTOR</span>
 		<img class="island img-responsive" src="img/island_cl.png">
+		<div class="clouds_up"></div>
 		<div class="waves waves1">
 			<img class=" floating img-responsive" src="img/waves3.png">
 		</div>
@@ -26,10 +22,10 @@
 		<div class="waves waves5">
 			<img class=" floating img-responsive" src="img/waves3.png">
 		</div>
-				<div class="waves waves6">
+		<div class="waves waves6">
 			<img class=" floating img-responsive" src="img/waves3.png">
 		</div>
-		<div class="row">
+		<div class="row boxes_off">
 			<div id="Characters" class="inline tossing col-md-4 col-sm-4 col-xs-4">
 				<p class="box_text ">Characters</p>
 				<img src="img/chest.png" id="chars" class="box chars" alt="Characters" >
@@ -189,11 +185,12 @@ $(document).ready(function(){
 
 			$(this).find('img').remove();
 			$(this).find('p').remove();
-
+			
 			$(this).append('<img src="img/cloud.png" class="bigEntrance cloud" alt="' + this.id +'" >').addClass('tossing');
 			$(this).append('<p class="cloud_title">'+ this.id + '</p>');
 
 			$(this).append('<ul class="cloud_list" id="' + this.id + '"></ul>');
+			$(this).addClass('cloud_up');
 			strTo_ul( cloud_text, this.id );
 		}
 		
