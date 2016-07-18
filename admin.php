@@ -68,8 +68,8 @@ include 'header.php';
     </div>
     <div id="menu2" class="tab-pane fade">
       <h3>Story Guidelines Import</h3>
-	  <p>Here you can upload CSV files containing story guidelines</p>
-	  <p><a href="#">Click here to download the template</a></p>
+	  <h4>Here you can upload CSV files containing story guidelines</h4>
+	  <h4><a href="#">Click here to download the template</a></h4>
 <!--       <p>
 			<form id="csv" action="hndlr_csv.php" method="post" enctype="multipart/form-data" target="formInfo">
 				<h3>Select CSV file to upload:</h3>
@@ -85,7 +85,7 @@ include 'header.php';
 				</div>
 			</form>
 	   </p>  -->
-	    <h3>Story Guidelines upload (CSV)</h3>
+	    <h3>Upload (only CSV files)</h3>
       <p>
 	      <!-- The file upload form used as target for the file upload widget -->
 			<form class="fileupload" id="csv" action="backend.php" method="POST" enctype="multipart/form-data">
@@ -128,11 +128,9 @@ include 'header.php';
 				<!-- The table listing the files available for upload/download -->
 				<table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
 			</form>
-	   	  <iframe name="formInfo">
-			</iframe>
     </div>
     <div id="menu3" class="tab-pane fade">
-      <h3>Image upload</h3>
+      <h3>Image upload for mystery box (only jp(e)g, png, gif)</h3>
       <p>
 	      <!-- The file upload form used as target for the file upload widget -->
 			<form class="fileupload" id="img" action="backend.php" method="POST" enctype="multipart/form-data">
@@ -143,7 +141,7 @@ include 'header.php';
 						<span class="btn btn-success fileinput-button">
 							<i class="glyphicon glyphicon-plus"></i>
 							<span>Add files...</span>
-							<input type="file" name="files[]" multiple>
+							<input type="file" name="files" multiple>
 						</span>
 						<button type="submit" class="btn btn-primary start">
 							<i class="glyphicon glyphicon-upload"></i>
@@ -191,8 +189,7 @@ include 'header.php';
 	if(isset($_SESSION['user_is_logged_in']) && $_SESSION['user_name'] == 'admin' )
 echo '
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Register User</button>
-';
-?>
+
 	<!-- Modal -->
 	<div id="myModal" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
@@ -212,7 +209,7 @@ echo '
 			<p><div><label for="login_input_username">Username (only letters and numbers, 2 to 64 characters)</label></div>
 			<input class="form-control" id="login_input_username" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" required /></p>
 			
-			<p><div><label for="login_input_email">User's email</label></div>
+			<p><div><label for="login_input_email">User\'s email</label></div>
 			<input class="form-control" id="login_input_email" type="email" name="user_email" required /></p>
 			
 			<p><div><label for="login_input_country">Country</label></div>
@@ -229,10 +226,9 @@ echo '
 		
 			<p><div><label for="login_input_password_repeat">Repeat password</label></div>			
 			<input  id="login_input_password_repeat" class="form-control login_input" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" /></p>
-<?php 
-	if(isset($_SESSION['user_is_logged_in']) && $_SESSION['user_name'] == 'admin' )
-			echo '<input class="btn btn-lg  btn-block btn-primary" type="submit" name="register" value="Register" />';
-?>
+
+			<input class="btn btn-lg  btn-block btn-primary" type="submit" name="register" value="Register" />
+
         </form>
 		</p>
 	
@@ -241,7 +237,8 @@ echo '
 			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		  </div>
 		</div>
-
+		';
+?>
 	  </div>
 	</div>
 	
@@ -292,7 +289,9 @@ echo '
                 </button>
             {% } %}
         </td>
-    </tr>
+	 </tr>
+        <!-- ... -->
+        <!-- ... -->
 {% } %}
 </script>
 <!-- The template to display files available for download -->
@@ -338,6 +337,7 @@ echo '
     </tr>
 {% } %}
 </script>
+
 <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
 <script src="plugins/jQuery-File-Upload-9.12.5/js/vendor/jquery.ui.widget.js"></script>
 <!-- The Templates plugin is included to render the upload/download listings -->
@@ -489,21 +489,6 @@ $(document).ready(function(){
 		});
 		 
 	 });
-	 
-	 $(':file').on('fileselect', function(event, numFiles, label) {
-		
-		$('#csv_file').text(label);
-	 
-         /*  var input = $(this).parents('.input-group').find(':text'),
-              log = numFiles > 1 ? numFiles + ' files selected' : label;
-
-          if( input.length ) {
-              input.val(log);
-          } else {
-              if( log ) alert(log);
-          } */
-
-      });
 });
 
 </script>

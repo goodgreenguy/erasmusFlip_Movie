@@ -88,9 +88,9 @@ class UploadHandler
             // is enabled, set to 0 to disable chunked reading of files:
             'readfile_chunk_size' => 10 * 1024 * 1024, // 10 MiB
             // Defines which files can be displayed inline when downloaded:
-            'inline_file_types' => '/\.(gif|jpe?g|png|csv)$/i',
+            'inline_file_types' => '/\.(gif|jpe?g|png)$/i',
             // Defines which files (based on their names) are accepted for upload:
-            'accept_file_types' => '/\.(gif|jpe?g|png|csv)$/i',//'/.+$/i',
+            'accept_file_types' => '/\.(gif|jpe?g|png)$/i',//'/.+$/i',
             // The php.ini settings upload_max_filesize and post_max_size
             // take precedence over the following max_file_size setting:
             'max_file_size' => null,
@@ -1147,7 +1147,7 @@ class UploadHandler
     }
 
     protected function handle_form_data($file, $index) {
-        // Handle form data, e.g. $_POST['description'][$index]
+		
     }
 
     protected function get_version_param() {

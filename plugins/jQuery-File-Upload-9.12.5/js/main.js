@@ -35,25 +35,31 @@ var file_url = function( id ){
 
 var csv_file = $('#csv');
 var img_file = $('#img');
+var fileName = "";
+var all = [ csv_file, img_file ];
 
     // Initialize the jQuery File Upload widget:
    csv_file.fileupload({
 				dropZone: $(this),
-	
+	// formData: this.filename,
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
+		
         url: 'hndlr_csv.php'
-    });
+    })
+	.bind('fileuploadadd', function (e, data) {
+	  $.each(data.files, function (index, file) {
+		fileName = file.name;
+	  });
+	})
+	.bind('fileuploadsubmit', function (e, data) {
+	  data.formData = {
+		  "file" : fileName,
+		  };
+	})
 
-    // Enable iframe cross-domain access via redirect option:
-    csv_file.fileupload(
-        'option',
-        'redirect',
-        window.location.href.replace(
-            /\/[^\/]*$/,
-            '/cors/result.html?%s'
-        )
-    );   // Initialize the jQuery File Upload widget:
+	
+	// Initialize the jQuery File Upload widget:
     img_file.fileupload({
 	
 		dropZone: $(this),
