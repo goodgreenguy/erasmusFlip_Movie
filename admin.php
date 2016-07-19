@@ -364,19 +364,19 @@ echo '
 <script src="plugins/jQuery-File-Upload-9.12.5/js/main.js"></script>
 <script>
 
-function handleUserData( data )
-{
-	var schools = [];
-	var countries = []
+ function handleUserData( data )
+ {
+	// var schools = [];
+	// var countries = []
 	
-	$.each(data, function(i, val){
-		schools[i] = val['user_school'];
-		countries[i] = val['user_country'];
-	});
-   $.each(schools, function(index, school){
-	 if( $('#'+school).text() != school )
-		$('#country').append('<option id="' + school + '">' + school + '</option>'); 
-  });
+	// $.each(data, function(i, val){
+		// schools[i] = val['user_school'];
+		// countries[i] = val['user_country'];
+	// });
+   // $.each(schools, function(index, school){
+	 // if( $('#'+school).text() != school )
+		// $('#country').append('<option id="' + school + '">' + school + '</option>'); 
+  // });
 }
 
 	var countries = [];
@@ -464,12 +464,11 @@ $(document).ready(function(){
 	});
 	
 	$('#st_class').change(function(){
-			
-
 		$('#students').change();
 		//$('#story').text( st_story[ $('#students').val() ] );
 	});
 
+	$('#students').change();
 	
 	$('#myTabs a').click(function (e) {
 	  e.preventDefault()
@@ -482,7 +481,7 @@ $(document).ready(function(){
 			if( student_data[i].class ==  $('#st_class').val())
 				$('#students').append('<option>' + value + '</option>');
 		});
-		 
+		 $('#students').change();
 	 });
 });
 

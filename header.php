@@ -63,8 +63,8 @@
 							 <?php
 								if(isset($_SESSION['user_is_logged_in']))
 								{	echo '<p></p>Hello ' . $_SESSION['user_name'] . ', from ' . $_SESSION['user_country'] . ', you are logged in.</p>';
-									echo '<div class=" col-md-2 col-sm-2 col-xs-2" role="group"><a href="admin.php"><button name="admin"class="btn btn-info">Admin panel</button></a></div>';
-									echo '<div class="col-md-2 col-sm-2 col-xs-2"><form class="form-signin form" role="form" method="post" >
+									echo '<div class=" col-md-2 col-sm-2 col-xs-2" role="group"><a href="admin.php"><button name="admin"class="btn btn-info">Admin panel</button></a><br/>';
+									echo '<form class="form-signin form" role="form" method="post" >
 														<button class="btn btn-group btn-primary" formaction="admin.php?action=logout">Log Out</button>
 												</form>
 											</div>';
