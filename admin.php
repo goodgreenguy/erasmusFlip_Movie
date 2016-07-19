@@ -42,11 +42,6 @@ include 'header.php';
       <p>
 	  <div class="row">
 			<div class="col-md-3 form-group">
-			  <label for="country">Select Country:</label>
-			  <select class="form-control" id="country">
-			  </select>
-			</div>
-			<div class="col-md-3 form-group">
 			  <label for="st_class">Class</label>
 			  <select class="form-control" id="st_class">
 				<option> </option>
@@ -69,7 +64,7 @@ include 'header.php';
     <div id="menu2" class="tab-pane fade">
       <h3>Story Guidelines Import</h3>
 	  <h4>Here you can upload CSV files containing story guidelines</h4>
-	  <h4><a href="#">Click here to download the template</a></h4>
+	  <h4><a href="/files/guidelines_template.csv">Click here to download the template</a></h4>
 <!--       <p>
 			<form id="csv" action="hndlr_csv.php" method="post" enctype="multipart/form-data" target="formInfo">
 				<h3>Select CSV file to upload:</h3>

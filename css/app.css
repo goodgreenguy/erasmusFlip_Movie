@@ -114,6 +114,13 @@ img.cloud{
 	max-width: 59%;
 }
 
+.logo{
+	position: absolute;
+    width: 20%;
+    top: 19%;
+    left: 41%;
+}
+
 .chars{
 	//position: absolute;
 }
@@ -228,15 +235,21 @@ img.box_open{
 }
 
 .box_text{
-    width: 45%;
+    width: 31%;
     font-size: 1.5vw;
-    position: relative;
-    left: -5%;
-    top: 72%;
+    position: absolute;
+    left: 11%;
+    top: 13%;
     text-align: center;
-    z-index: -100;
-    background: white;
+    z-index: 1;
+    transform: rotate(-16deg);
+    background: #e7cc85;
 }
+
+.box_text_set{
+	left: 25%;
+}
+
 
 .boxes_off{
 	padding-left: 5%;
@@ -296,6 +309,12 @@ ul.cloud_list{
 				 0 0 30px #fff, 0 0 40px #bbd3eb, 
 				 0 0 70px #bacfeb, 0 0 80px #caddf0, 
 				 0 0 100px #cedff1, 0 0 150px #bbd0eb;
+}
+
+.sun{
+	position: absolute;
+    left: 80%;
+	width: 15%;
 }
 
 @font-face {

@@ -8,8 +8,7 @@
 
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/app.css">
 <link rel="stylesheet" type="text/css" href="plugins/bootstrap/css/bootstrap.min.css">
@@ -23,7 +22,7 @@
 
 <title>Erasmus Flip & Movie Project</title>
 
-<nav class="navbar navbar-default navbar-inverse" role="navigation">
+<nav class="navbar navbar-default role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -39,8 +38,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class=""><a href="https://www.facebook.com/Erasmus-Flip-Movie-O%C5%A0-Bartul-Ka%C5%A1i%C4%87-242844366101408/"><img class="fb_logo" src="img/FB-f-Logo__blue_29.png" style="width: 70%;"></img></a></li>
-        <li><a href="#">Link</a></li>
+        <li class=""><a href="https://www.facebook.com/Erasmus-Flip-Movie-O%C5%A0-Bartul-Ka%C5%A1i%C4%87-242844366101408/"><img src="img/FB-f-Logo__blue_29.png"></img></a></li>
+       <!--  <li><a href="#">Link</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
@@ -52,7 +51,7 @@
             <li class="divider"></li>
             <li><a href="#">One more separated link</a></li>
           </ul>
-        </li>
+        </li> -->
       </ul>
        <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
@@ -63,9 +62,9 @@
 							<div class="col-md-12">
 							 <?php
 								if(isset($_SESSION['user_is_logged_in']))
-								{	echo 'Hello ' . $_SESSION['user_name'] . ', ' . $_SESSION['user_country'] . 'you are logged in.<br/><br/>';
-									echo '<div class="btn-group" role="group"><a href="admin.php"><button name="admin"class="btn btn-info">Admin panel</button></a>';
-									echo '<form class="form-signin form" role="form" method="post" >
+								{	echo '<p></p>Hello ' . $_SESSION['user_name'] . ', from ' . $_SESSION['user_country'] . ', you are logged in.</p>';
+									echo '<div class=" col-md-2 col-sm-2 col-xs-2" role="group"><a href="admin.php"><button name="admin"class="btn btn-info">Admin panel</button></a></div>';
+									echo '<div class="col-md-2 col-sm-2 col-xs-2"><form class="form-signin form" role="form" method="post" >
 														<button class="btn btn-group btn-primary" formaction="admin.php?action=logout">Log Out</button>
 												</form>
 											</div>';

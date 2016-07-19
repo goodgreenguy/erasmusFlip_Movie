@@ -55,7 +55,7 @@ if (isset($_GET["submit"]) )
 
 	if ( $submit == "getUserData" )
 	{
-		$query = 'SELECT * FROM users';
+		$query = 'SELECT user_name, user_country, secret, user_school, user_email FROM users';
 		$stmt = $db->prepare($query);
 		$stmt->execute();
 		
@@ -144,6 +144,27 @@ if (isset($_GET["action"]) && $_GET["action"] == "submit_story")
 	}
 }
 
+if ( isset($_GET["action"]) && $_GET["action"] == "getStoryData" )
+{
+	session_start(); 
 
+	$query = 'SELECT * FROM plots';//characters, settings, plots, endings FROM story  ORDER BY RANDOM() LIMIT 1';
+	$stmt = $db->prepare($query);
+
+	$stmt->execute();
+	
+	$story_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$i = 0;
+	error_log($story_data, 0);
+	foreach( $story_data as $row ) 
+	{
+		$stud_name[ $i ] =  $row['name'];
+		$stud_grade[ $i ] =  $row['grade'];
+		$stud_class[ $i ] =  $row['class'];
+		$stud_story[ $i ] =  $row['story'];
+	}
+			
+	echo json_encode( $story_data, JSON_NUMERIC_CHECK );
+}
 
 ?>

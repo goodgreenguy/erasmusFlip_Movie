@@ -118,18 +118,19 @@ $upload_handler1 = new CustomUploadHandler1(array(
 'accept_file_types' => '/\.(csv)$/i'
 ));
 
-$csv_filename =  $_SESSION['filename'];
-$csv=  '/var/www/files/csv/' . $_SESSION['secret'] . '/' . $csv_filename;
 $secret =  $_SESSION['secret'];
-
-
-error_log( $_SERVER['REQUEST_METHOD'], 0 );
 
 if( $_SERVER['REQUEST_METHOD'] === 'DELETE' )
 {
+	$csv_filename =  $_SESSION['filename'];
+	$csv=  '/var/www/files/csv/' . $_SESSION['secret'] . '/' . $csv_filename;
+
 	delete_csv_from_db( $db, $csv_filename );
 }
 else if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+	$csv_filename =  $_SESSION['filename'];
+	$csv=  '/var/www/files/csv/' . $_SESSION['secret'] . '/' . $csv_filename;
+
 	import_csv_to_sqlite( $db, $csv, $csv_filename );
 }

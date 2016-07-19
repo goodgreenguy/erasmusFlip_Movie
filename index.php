@@ -2,9 +2,11 @@
 	include 'header.php';
 ?>
 <body class="back">
-<div class="container">
+<div class="container-fluid">
 	<div id="app">
 		<span class="page_title">STORYINVENTOR</span>
+		<div class="row"><img class="sun pulse img-responsive" src="img/sun.png"></div>
+		<div class="row"><a href="http://www.flipandmovie.eu/"><img class="img-responsive logo" src="img/logo_small.png"></img></a></div>
 		<img class="island img-responsive" src="img/island_cl.png">
 		<div class="clouds_up"></div>
 		<div class="waves waves1">
@@ -26,16 +28,16 @@
 			<img class=" floating img-responsive" src="img/waves3.png">
 		</div>
 		<div class="row boxes_off">
-			<div id="Characters" class="inline tossing col-md-4 col-sm-4 col-xs-4">
+			<div id="Characters" class="inline tossing col-lg-4 col-md-4 col-sm-4 col-xs-4">
 				<p class="box_text ">Characters</p>
 				<img src="img/chest.png" id="chars" class="box chars" alt="Characters" >
 			</div>
-			<div id="Settings" class="inline tossing col-md-4 col-sm-4 col-xs-4">
-				<p class="box_text ">Settings</p>
+			<div id="Settings" class="inline tossing col-lg-4 col-md-4 col-sm-4 col-xs-4">
+				<p class="box_text box_text_set">Settings</p>
 				<img src="img/chest.png" id="set" class="box set" alt="Settings" >
 			</div>
-			<div id="Plots" class="inline tossing col-md-4 col-sm-4 col-xs-4">
-				<p class="box_text plots">Plots</p>
+			<div id="Plots" class="inline tossing col-lg-4 col-md-4 col-sm-4 col-xs-4">
+				<p class="box_text plots box_text_set">Plots</p>
 				<img src="img/chest.png" id="plot" class="box plot" alt="Plots" >
 			</div>
 		</div>
@@ -147,8 +149,30 @@ function pen()
 	$('#link').removeClass('hidden').fadeIn();
 
 }
+
+function handleStoryData( data )
+{
+	console.log(data);
+}
+
+function getStoryData( callback )
+{
+  tosend = "submit=getStoryData";
+    $.ajax({
+  type: "GET",
+  url: "backend.php",
+  data: tosend,
+  success: function( data ){ callback( data );},
+	dataType: 'json',
+	error: function(xhr, ajaxOptions, thrownError) {
+	console.log(thrownError);}
+  });
+}
+
 $(document).ready(function(){
 	
+	getStoryData( handleStoryData );
+		
 	$.each(story, function(arg){
 		Cookies.remove(story[arg]);
 	})
