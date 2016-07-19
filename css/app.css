@@ -288,7 +288,7 @@ ul.cloud_list{
 	position: absolute;
     top: 16%;
     left: 5%;
-    font-size: 86%;
+    font-size: 1.2vw;
     overflow-y: auto;
     word-wrap: break-word;
     width: 50%;
