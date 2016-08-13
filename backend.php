@@ -111,6 +111,41 @@ if (isset($_GET["submit"]) )
 				
 		echo json_encode( $student_data, JSON_NUMERIC_CHECK );
 	}
+	if ( $submit == "getStoryData" )
+	{
+			session_start(); 
+
+			$query = 'SELECT plots FROM  story ORDER BY RANDOM() LIMIT 1'; //FROM plots, characters, settings, plots, endings 
+			$stmt = $db->prepare($query);
+			$categories = [ 'plots', 'characters', 'settings', 'endings' ];
+			$stmt->execute();
+			
+			$data = []; $i = 0;
+			foreach( $categories as $cat ) 
+			{
+				$query1 = 'SELECT ' . $cat .' FROM story ORDER BY RANDOM() LIMIT 1';
+				$stmt = $db->prepare($query1);
+				$stmt->execute();
+				$temp = $stmt->fetch(PDO::FETCH_ASSOC);
+				$data[ $i ] = $temp;
+				$i += 1;	
+			}
+			
+	//		$story_dat = [$data['plots'], $data['characters'],  $data['settings'], $data['endings'] ];
+			
+			$story_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+				$i = 0;
+			//error_log($story_data, 0);
+			foreach( $story_data as $row ) 
+			{
+				$stud_name[ $i ] =  $row['name'];
+				$stud_grade[ $i ] =  $row['grade'];
+				$stud_class[ $i ] =  $row['class'];
+				$stud_story[ $i ] =  $row['story'];
+			}
+			
+			echo json_encode( $data, JSON_NUMERIC_CHECK );
+	}
 }
 else
 {
@@ -148,7 +183,7 @@ if ( isset($_GET["action"]) && $_GET["action"] == "getStoryData" )
 {
 	session_start(); 
 
-	$query = 'SELECT * FROM plots';//characters, settings, plots, endings FROM story  ORDER BY RANDOM() LIMIT 1';
+	$query = 'SELECT * FROM plots, characters, settings, plots, endings FROM story  ORDER BY RANDOM() LIMIT 1';
 	$stmt = $db->prepare($query);
 
 	$stmt->execute();
@@ -164,7 +199,7 @@ if ( isset($_GET["action"]) && $_GET["action"] == "getStoryData" )
 		$stud_story[ $i ] =  $row['story'];
 	}
 			
-	echo json_encode( $story_data, JSON_NUMERIC_CHECK );
+	echo json_encode( $story_data ); //, JSON_NUMERIC_CHECK );
 }
 
 ?>

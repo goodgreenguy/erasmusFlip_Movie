@@ -106,6 +106,9 @@ dy{
 img.box{
 	max-width:40%;
     height: auto;
+	//	-webkit-transform: translateZ(0);
+-webkit-transform-style: preserve-3d;
+-webkit-backface-visibility: hidden;
 //	bottom: 335%;
 //	left: 110%;
 }
@@ -173,6 +176,9 @@ img.box_open{
     width: 100%;
     height: auto;
 	opacity: 0.85;
+	//-webkit-transform: translateZ(0);
+	-webkit-transform-style: preserve-3d;
+	-webkit-backface-visibility: hidden;
 }
 
 .waves1{
@@ -194,7 +200,7 @@ img.box_open{
 
 }
 .waves5{
-	top: 58%;
+	top: 56%;
     z-index: -50;
 }
 .waves6	{

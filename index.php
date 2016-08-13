@@ -2,31 +2,31 @@
 	include 'header.php';
 ?>
 <body class="back">
-<div class="container-fluid">
+<div class="container">
 	<div id="app">
 		<span class="page_title">STORYINVENTOR</span>
 		<div class="row"><img class="sun pulse img-responsive" src="img/sun.png"></div>
 		<div class="row"><a href="http://www.flipandmovie.eu/"><img class="img-responsive logo" src="img/logo_small.png"></img></a></div>
 		<img class="island img-responsive" src="img/island_cl.png">
 		<div class="clouds_up"></div>
-		<div class="waves waves1">
-			<img class=" floating img-responsive" src="img/waves3.png">
-		</div>
-		<div class="waves waves2">
-			<img class=" floating img-responsive" src="img/waves3.png">
-		</div>
-		<div class="waves waves3">
-			<img class=" floating img-responsive" src="img/waves3.png">
-		</div>
-		<div class="waves waves4">
-			<img class=" floating img-responsive" src="img/waves3.png">
-		</div>
-		<div class="waves waves5">
-			<img class=" floating img-responsive" src="img/waves3.png">
-		</div>
-		<div class="waves waves6">
-			<img class=" floating img-responsive" src="img/waves3.png">
-		</div>
+<!-- 			<div class="waves waves1">
+				<img class="floating  img-responsive" src="img/waves3.png">
+			</div> -->
+			<div class="waves waves2">
+				<img class="  img-responsive" src="img/waves3.png">
+			</div>
+			<div class="waves waves3">
+				<img class="  img-responsive" src="img/waves3.png">
+			</div>
+			<div class="waves waves4">
+				<img class="  img-responsive" src="img/waves3.png">
+			</div>
+			<div class="waves waves5">
+				<img class=" floating img-responsive" src="img/waves3.png">
+			</div>
+			<div class="waves waves6">
+				<img class="  img-responsive" src="img/waves3.png">
+			</div>
 		<div class="row boxes_off">
 			<div id="Characters" class="inline tossing col-lg-4 col-md-4 col-sm-4 col-xs-4">
 				<p class="box_text ">Characters</p>
@@ -43,7 +43,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-2 col-sm-2 col-xs-2"></div>
-			<div id="Ends of Stories" class="inline front tossing col-md-4 col-sm-4 col-xs-4">
+			<div id="Endings" class="inline front tossing col-md-4 col-sm-4 col-xs-4">
 				<p class="box_text ">Ends of Stories</p>
 				<img src="img/chest.png" id="ends" class="box ends" alt="Endings" >
 			</div>
@@ -95,13 +95,22 @@ Good and love always win,\
 Strong, courageous and wise woman who is determined to protect her family\
 "];
 
-var story = {
+var story1 = {
  "Characters" : Characters,
  "Settings" : Settings,
  "Plots" : Plots,
  "Ends of Stories" : Ending,
  "Mystery" : Mystery
 };
+
+var story = {
+ "Characters" : '',
+ "Settings" : '',
+ "Plots" : '',
+ "Endings" : '',
+ "Mystery" : ''
+};
+
 
 function strTo_ul( str, id )
 {
@@ -152,21 +161,88 @@ function pen()
 
 function handleStoryData( data )
 {
-	console.log(data);
+	$.each( data, function(i, key ) 
+	{
+		for( val in key )
+		{
+			story[ val ] = data[ i ][val];
+			console.log(story[ val ]);
+		}
+	
+		
+	});
+		
+//story[ "Characters" ]  = data["characters"];
+/* : '',
+ "Settings" : '',
+ "Plots" : '',
+ "Ends of Stories" : '',
+ "Mystery" : ''*/
+
 }
 
 function getStoryData( callback )
 {
   tosend = "submit=getStoryData";
-    $.ajax({
+  $.ajax({
   type: "GET",
   url: "backend.php",
   data: tosend,
   success: function( data ){ callback( data );},
-	dataType: 'json',
-	error: function(xhr, ajaxOptions, thrownError) {
-	console.log(thrownError);}
+  dataType: 'json',
+  error: function(xhr, ajaxOptions, thrownError) { console.log(thrownError);}
   });
+}
+
+var boxes_opened = [];
+var effect ="";
+var pen_active = false;
+
+function replace_chest( id )
+{
+	var cloud_text = "";
+	var cookie_exp = 0.0007;
+	if( $.inArray( id, boxes_opened) == -1 ) // disable multiple cloud spawn 
+	{ 
+		cloud_text = story[ id ];
+
+		if( id == "Ends of Stories" )
+		{
+			boxes_opened.push("Plots");
+			$('#Plots').find('img').addClass('pulse');
+			Cookies.set(id, cloud_text, { expires: cookie_exp });
+			Cookies.set('Plots', '', { expires: cookie_exp });
+		}
+		else if( id == "Plots" )
+		{
+			boxes_opened.push("Ends of Stories");
+			$('div[id="Ends of Stories"]').find('img').addClass('pulse');
+			Cookies.set(id, cloud_text, { expires: cookie_exp });
+			Cookies.set("Ends of Stories", "", { expires: cookie_exp });
+		}
+		else
+		{
+			Cookies.set(id, cloud_text, { expires: cookie_exp });
+		}
+		boxes_opened.push(id);			
+
+		var conv = "#"+id;
+		$(conv).find('img').remove();
+		$(conv).find('p').remove();
+		
+		$(conv).append('<img src="img/cloud.png" class="cloud" alt="' + id +'" >');
+		$(conv).append('<p class="cloud_title">'+ id + '</p>');
+
+		$(conv).append('<ul class="cloud_list" id="' + id + '"></ul>');
+		$(conv).addClass('cloud_up');
+		strTo_ul( cloud_text, id );
+	}
+	
+	if( ( boxes_opened.length == 5 ) && !pen_active )
+	{
+		pen_active = true;
+		setTimeout(pen,2000);
+	}
 }
 
 $(document).ready(function(){
@@ -177,52 +253,9 @@ $(document).ready(function(){
 		Cookies.remove(story[arg]);
 	})
 	
-	var boxes_opened = [];
-	var effect ="";
-	var pen_active = false;
-	$(".tossing").click(function(){
-		var cloud_text = "";
-		var cookie_exp = 0.0007;
-		if( $.inArray( this.id, boxes_opened) == -1 ) // disable multiple cloud spawn 
-		{ 
-			cloud_text = selectRandom(this.id);
 
-			if( this.id == "Ends of Stories" )
-			{
-				boxes_opened.push("Plots");
-				$('#Plots').find('img').removeClass('floating').addClass('pulse');
-				Cookies.set(this.id, cloud_text, { expires: cookie_exp });
-				Cookies.set('Plots', '', { expires: cookie_exp });
-			}
-			else if( this.id == "Plots" )
-			{
-				boxes_opened.push("Ends of Stories");
-				$('div[id="Ends of Stories"]').find('img').removeClass('floating').addClass('pulse');
-				Cookies.set(this.id, cloud_text, { expires: cookie_exp });
-				Cookies.set("Ends of Stories", "", { expires: cookie_exp });
-			}
-			else
-			{
-				Cookies.set(this.id, cloud_text, { expires: cookie_exp });
-			}
-			boxes_opened.push(this.id);			
-
-			$(this).find('img').remove();
-			$(this).find('p').remove();
-			
-			$(this).append('<img src="img/cloud.png" class="bigEntrance cloud" alt="' + this.id +'" >').addClass('tossing');
-			$(this).append('<p class="cloud_title">'+ this.id + '</p>');
-
-			$(this).append('<ul class="cloud_list" id="' + this.id + '"></ul>');
-			$(this).addClass('cloud_up');
-			strTo_ul( cloud_text, this.id );
-		}
-		
-		if( ( boxes_opened.length == 5 ) && !pen_active )
-		{
-			pen_active = true;
-			setTimeout(pen,2000);
-		}
+	$(".tossing").click( function(){
+	replace_chest( this.id );
 	});
 })
 
