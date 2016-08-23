@@ -56,7 +56,9 @@ dy{
     }
 }
 
-
+.navbar_mod{
+    margin-bottom: 0px;
+}
 /* Chrome, Safari, Opera */
 @-webkit-keyframes cover_rot {
     from {-ms-transform: rotate(0deg); /* IE 9 */
@@ -242,7 +244,7 @@ img.box_open{
 
 .box_text{
     width: 31%;
-    font-size: 1.5vw;
+    font-size: 15px;
     position: absolute;
     left: 11%;
     top: 13%;
@@ -317,10 +319,19 @@ ul.cloud_list{
 				 0 0 100px #cedff1, 0 0 150px #bbd0eb;
 }
 
+.cloud_up{
+	bottom: 30px;
+}
+
+.box_up{
+	bottom: 13px;
+}
+
 .sun{
 	position: absolute;
     left: 80%;
 	width: 15%;
+	z-index: 1;
 }
 
 @font-face {
@@ -332,7 +343,15 @@ ul.cloud_list{
     font-size: xx-large;
 }
 
+.story_title{
+  font-size: 4vw;
+	font-family: cloudFont;
+}
 
+.story_side{
+  font-size: 30px;
+	font-family: cloudFont;
+}
 
 .story_input{
 	border: 1px solid #EEEEEE;
@@ -401,17 +420,39 @@ div.stretchy-wrapper > div {
 }
 
 .note_title{
-    position: relative;
-    right: 30px;
+    position: absolute;
+    right: 16%;
+    top: 15%;
+    width: 75%;
     word-wrap: break-word;
     font-size: 20px;
     text-align: center;
 }
 
+.island_story{
+	  position: absolute;
+    width: 96%;
+    top: 14%;
+    height: auto;
+	
+}
+
+ul.note_list{
+    position: absolute;
+    top: 25%;
+    left: 5%;
+    font-size: 15px;
+    overflow-y: auto;
+    word-wrap: break-word;
+    width: 66%;
+    height: 53%;
+}
+
+
 .note{
     position: relative;
-    bottom: 200px;
-    height: inherit;
+    bottom: 2%;
+    height: 150%;
     text-indent: 30px;
     word-wrap: break-word;
     font-size: 15px;
@@ -419,7 +460,16 @@ div.stretchy-wrapper > div {
 }
 
 .note_text{
-	height: 100px;
+	position: relative;
+    top: 16%;
+    left: 5%;
+    font-size: 1.2vw;
+    overflow-y: auto;
+    word-wrap: break-word;
+    width: 50%;
+    height: 53%;
+		
+	/*height: 100px;
     width: 174px;
     word-wrap: break-word;
     font-size: 13px;
@@ -427,11 +477,11 @@ div.stretchy-wrapper > div {
     position: relative;
     left: 39px;
     bottom: 13px;
-    line-height: normal;
+    line-height: normal;*/
 }
 
 li.note_whole{
-	height: 250px;
+	width: 91%;
 }
 
 .inline{

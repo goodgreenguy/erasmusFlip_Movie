@@ -1,5 +1,7 @@
 <?php  
 	include 'header.php';
+	if(isset($_SESSION['user_is_logged_in']))
+		header('Location: urlOfForm-postedPage');
 ?>
 <body class="back">
 <div class="container">
@@ -22,21 +24,21 @@
 				<img class="  img-responsive" src="img/waves3.png">
 			</div>
 			<div class="waves waves5">
-				<img class=" floating img-responsive" src="img/waves3.png">
+				<img class="  img-responsive" src="img/waves3.png">
 			</div>
 			<div class="waves waves6">
 				<img class="  img-responsive" src="img/waves3.png">
 			</div>
 		<div class="row boxes_off">
-			<div id="Characters" class="inline tossing col-lg-4 col-md-4 col-sm-4 col-xs-4">
+			<div id="Characters" class="inline tossing col-lg-4 col-md-4 col-sm-4 col-xs-4 box_up">
 				<p class="box_text ">Characters</p>
 				<img src="img/chest.png" id="chars" class="box chars" alt="Characters" >
 			</div>
-			<div id="Settings" class="inline tossing col-lg-4 col-md-4 col-sm-4 col-xs-4">
+			<div id="Settings" class="inline tossing col-lg-4 col-md-4 col-sm-4 col-xs-4 box_up">
 				<p class="box_text box_text_set">Settings</p>
 				<img src="img/chest.png" id="set" class="box set" alt="Settings" >
 			</div>
-			<div id="Plots" class="inline tossing col-lg-4 col-md-4 col-sm-4 col-xs-4">
+			<div id="Plots" class="inline tossing col-lg-4 col-md-4 col-sm-4 col-xs-4 box_up">
 				<p class="box_text plots box_text_set">Plots</p>
 				<img src="img/chest.png" id="plot" class="box plot" alt="Plots" >
 			</div>
@@ -57,51 +59,6 @@
 
 <script type="text/javascript" >
 
-
-
-var Mystery = ["Mystery 1", "Mystery 2"];
-var Characters = ["Potjeh, Starac Vijest, Marun, Ljutiša",
-"Giant Regoč, Fairy Kosjenka, Ljiljo – village boy, Grandpa, Grandma, Children",
-"Fisherman Palunko, \
-Palunko’s wife,\
-Vlatko (Palunko’s son),\
-King of the Sea,\
-Zora – underwater goddess,\
-Mermaids (sea girls)"];
-
-var Settings = ["Grandpa’s cottage, forest, well, sky",
- "Meadow with horses, Village, Legen town",
- "Modest house located in the karst area at the foot of the mountain, Sea, Water mill (wheel), Underwater castle"];
-
-var Plots = ["revealing the truth, forgetting the truth, travel around the world, quarrel, the truth is inside the heart, \
-good deeds lead to heaven", 
-"Friendship between giant and fairy, Journey to the unknown, \
-Eternal conflict between love and hate, Quarrel of the villagers - destruction of the village",
-"Human greed, Human curse-we are never happy with what we have, we always want more and more…,\
-Woman’s unconditional faith,\
-Dedication and faith in the family"
-];
-
-var Ending = ["forgiveness, Hearth- symbol of family reunion, good deeds lead to heaven", 
-"Final celebration of the villagers,\
-Sadness of the villagers (when they realize that they are left all alone),\
-The return of Grandpa and Grandma,\
-Force of friendship,\
-Reconstruction of the village",
-"Family reunion,\
-Forgiveness,\
-Faith in the family,\
-Good and love always win,\
-Strong, courageous and wise woman who is determined to protect her family\
-"];
-
-var story1 = {
- "Characters" : Characters,
- "Settings" : Settings,
- "Plots" : Plots,
- "Ends of Stories" : Ending,
- "Mystery" : Mystery
-};
 
 var story = {
  "Characters" : '',
@@ -125,13 +82,6 @@ function strTo_ul( str, id )
 			.appendTo(cList);
 		
 	});
-}
-
-function selectRandom(arg)
-{
-	num = Math.floor(Math.random() * story[arg].length);
-	ret = story[arg][ num ];
-	return( ret );
 }
 
 $.fn.animateRotate = function(angle, duration, easing, complete) {
@@ -167,24 +117,14 @@ function handleStoryData( data )
 		{
 			story[ val ] = data[ i ][val];
 			console.log(story[ val ]);
-		}
-	
-		
+		}		
 	});
-		
-//story[ "Characters" ]  = data["characters"];
-/* : '',
- "Settings" : '',
- "Plots" : '',
- "Ends of Stories" : '',
- "Mystery" : ''*/
-
-}
-
+}		
 function getStoryData( callback )
 {
   tosend = "submit=getStoryData";
-  $.ajax({
+  $.ajax(
+	{
   type: "GET",
   url: "backend.php",
   data: tosend,
@@ -201,12 +141,12 @@ var pen_active = false;
 function replace_chest( id )
 {
 	var cloud_text = "";
-	var cookie_exp = 0.0007;
+	var cookie_exp = 0.007;
 	if( $.inArray( id, boxes_opened) == -1 ) // disable multiple cloud spawn 
 	{ 
 		cloud_text = story[ id ];
 
-		if( id == "Ends of Stories" )
+		if( id == "Endings" )
 		{
 			boxes_opened.push("Plots");
 			$('#Plots').find('img').addClass('pulse');
@@ -215,12 +155,12 @@ function replace_chest( id )
 		}
 		else if( id == "Plots" )
 		{
-			boxes_opened.push("Ends of Stories");
-			$('div[id="Ends of Stories"]').find('img').addClass('pulse');
+			boxes_opened.push("Endings");
+			$('div[id="Endings"]').find('img').addClass('pulse');
 			Cookies.set(id, cloud_text, { expires: cookie_exp });
-			Cookies.set("Ends of Stories", "", { expires: cookie_exp });
+			Cookies.set("Endings", "", { expires: cookie_exp });
 		}
-		else
+		else if( id != "Mystery")
 		{
 			Cookies.set(id, cloud_text, { expires: cookie_exp });
 		}
@@ -232,10 +172,10 @@ function replace_chest( id )
 		
 		$(conv).append('<img src="img/cloud.png" class="cloud" alt="' + id +'" >');
 		$(conv).append('<p class="cloud_title">'+ id + '</p>');
-
-		$(conv).append('<ul class="cloud_list" id="' + id + '"></ul>');
-		$(conv).addClass('cloud_up');
-		strTo_ul( cloud_text, id );
+	  var ul_id = "ul_" + id;
+		$(conv).append('<ul class="cloud_list" id="' + ul_id + '"></ul>');
+		$(conv).removeClass('box_up').addClass('cloud_up');
+		strTo_ul( cloud_text, ul_id );
 	}
 	
 	if( ( boxes_opened.length == 5 ) && !pen_active )
@@ -251,13 +191,12 @@ $(document).ready(function(){
 		
 	$.each(story, function(arg){
 		Cookies.remove(story[arg]);
-	})
-	
-
-	$(".tossing").click( function(){
-	replace_chest( this.id );
 	});
-})
+	
+	$(".tossing").click( function(){
+		replace_chest( this.id );
+	});
+});
 
 </script>
 </body>

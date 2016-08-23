@@ -90,8 +90,7 @@ function import_csv_to_sqlite(&$pdo, $csv_path, $csv_filename,	$options = array(
 function delete_csv_from_db( &$pdo, $csv_filename )
 {
 	$query = "DELETE FROM story WHERE filename = '$csv_filename' ";
-    $delete_sth = $pdo->prepare($query);
-	error_log( $query );
+  $delete_sth = $pdo->prepare($query);
 	$delete_sth->execute();
 }
 

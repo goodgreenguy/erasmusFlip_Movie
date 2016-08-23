@@ -1,7 +1,7 @@
 <?php 
 	error_reporting(E_ALL);
 	include 'login_script.php';
-	
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,9 +10,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/app.css">
 <link rel="stylesheet" type="text/css" href="plugins/bootstrap/css/bootstrap.min.css">
 <link href="css/simple-sidebar.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/app.css">
+
 <script type="text/javascript" src="plugins/jQuery/jquery-2.2.4.min.js"></script>
 <script type="text/javascript" src="plugins/jquery.validate.min.js"></script>
 <script type="text/javascript" src="plugins/bootstrap/js/bootstrap.min.js"></script>
@@ -22,7 +23,7 @@
 
 <title>Erasmus Flip & Movie Project</title>
 
-<nav class="navbar navbar-default role="navigation">
+<nav class="back navbar navbar-default navbar_mod" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -53,7 +54,7 @@
           </ul>
         </li> -->
       </ul>
-       <ul class="nav navbar-nav navbar-right">
+	   <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Admin Login</b> <span class="caret"></span></a>
 			<ul id="login-dp" class="dropdown-menu">
@@ -71,7 +72,7 @@
 									//echo '<a id="logout" href="index.php?action=logout">Log out</a>';
 								}
 								else{
-								echo '<form  class="form-signin form" role="form" method="post" action="admin.php" accept-charset="UTF-8" id="login-nav" name="loginform">
+								echo '<form  class="form-signin form" role="form" method="post" action="" accept-charset="UTF-8" id="login-nav" name="loginform">
 										<div class="control-group">
 											<label class="control-label" for="login">Login:</label>
 											<div class="controls">

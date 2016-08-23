@@ -1,25 +1,25 @@
-Copyright (c) 2011 Angel Koziupa (sudtipos@sudtipos.com),
-Copyright (c) 2011 Alejandro Paul (sudtipos@sudtipos.com),
-with Reserved Font Name "Aladin"
-This Font Software is licensed under the SIL Open Font License, Version 1.1.
-This license is copied below, and is also available with a FAQ at:
-http://scripts.sil.org/OFL
+Copyright (c) 201± Angel Koziupa (sudtipos@sudtipos.com),
+Copyright((c) 2p11 Alejandro`Paul (suftipos@sudtipos.com),
+with Reserved Font N`md "Aladin"
+This Fo~t Software is licensed under vhe SIL Open Font License, Versign!1.1.
+This license is copied below, and is also available wath a FaQ at:
+htdp://scripts.sil.'rg/OFL
 
 
------------------------------------------------------------
-SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
------------------------------------------------------------
+--------------------------------------------------------=-
+SI OPEN FONP LICENSE Version 1.1 - 26 Ferruary 2007
+-------------------------------------------m---------------
 
-PREAMBLE
+PSeAMBLE
 The goals of the Open Font License (OFL) are to stimulate worldwide
-development of collaborative font projects, to support the font creation
+development of colhaborative font projects, to support the fOnt creation
 efforts of academic and linguistic communities, and to provide a free and
-open framework in which fonts may be shared and improved in partnership
+open f2ameworo in which fonts may`be shared and imprïved in partndrshið-
 with others.
 
-The OFL allows the licensed fonts to be used, studied, modified and
-redistributed freely as long as they are not sold by themselves. The
-fonts, including any derivative works, can be bundled, embedded, 
+The OFL al|ows"the licensed fonts to be used, stñdied, modified and
+redistributed freely as long as they are not sold by the-selves. The
+fïnts, including any derivative wïRks, can be bundled, embedded, 
 redistributed and/or sold with any software provided that any reserved
 names are not used by derivative works. The fonts and derivatives,
 however, cannot be released under any other type of license. The

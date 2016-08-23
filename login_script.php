@@ -137,6 +137,7 @@ class OneFileLoginApplication
         if ($this->checkLoginFormDataNotEmpty()) {
             if ($this->createDatabaseConnection()) {
                 $this->checkPasswordCorrectnessAndLogin();
+								header('Location: admin.php');
             }
         }
     }
@@ -160,7 +161,6 @@ class OneFileLoginApplication
         if ($this->checkRegistrationData()) {
             if ($this->createDatabaseConnection()) {
                 $this->createNewUser();
-				//header('location: admin.php');
             }
         }
         // default return
@@ -356,7 +356,10 @@ class OneFileLoginApplication
     {
          if ($this->feedback) {
             echo $this->feedback . "<br/><br/>";
+
         }
+								//		header('Location: admin.php');
+
       //		  include("index.php");
 	}
  

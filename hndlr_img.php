@@ -18,7 +18,7 @@ session_start();
 class CustomUploadHandler2 extends UploadHandler {
     protected function get_user_id() {
         @session_start();
-        return 'img/' . $_SESSION['secret']; //session_id();
+        return 'img/' . $_SESSION['secret'];
     }
 }
 

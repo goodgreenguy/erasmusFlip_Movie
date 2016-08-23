@@ -5,49 +5,50 @@ include 'backend.php';
 
 <body>
 
-    <div id="wrapper">
-
+    <div id="wrapper" class="back">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#">
-                        Story Guidelines
-                    </a>
+                  <span class="story_side"> Story Guidelines</span>
                 </li>
                 <li class="note_whole">
-					  <img src="img/note.png" class="img-responsive" >
 					<div class="note">
 						<p class="note_title">Characters</p>
-						<p class="note_text" id="Characters"></p>
+						<ul class="note_list" id="Characters">
+						</ul>
+						<img src="img/note.png" class="img-responsive" >
 					</div>
                 </li>
                 <li class="note_whole">
-					<img src="img/note.png" class="img-responsive" >
 					<div class="note">
 						<p class="note_title">Settings</p>
-						<p class="note_text" id="Settings"></p>
-					<div>
+						<ul class="note_list" id="Settings">
+						</ul>
+					  <img src="img/note.png" class="img-responsive" >
+					</div>
                 </li>
                 <li class="note_whole">
-					 <img src="img/note.png" class="img-responsive" >
 					 <div class="note">
 						 <p class="note_title">Plots</p>
-						 <p class="note_text" id="Plots"></p>
+						 	<ul class="note_list" id="Plots">
+							</ul>
+					  <img src="img/note.png" class="img-responsive" >
 					 </div>
                 </li>
                 <li class="note_whole">
-					<img src="img/note.png" class="img-responsive" >
 					<div class="note">
 						<p class="note_title">Ends of Stories</p>
-						<p class="note_text" id="Ends of Stories"></p>
+						 	<ul class="note_list" id="Ends of Stories">
+							</ul>
+					  <img src="img/note.png" class="img-responsive" >
 					</div>
 			      </li>
                 <li class="note_whole">
-					<img src="img/note.png" class="img-responsive" >
 					<div class="note">
 						<p class="note_title">Mystery Box</p>
-						<p class="note_text" id="Mystery"></p>
+						<p class="note_list" id="Mystery"></p>
+					  <img src="img/note.png" class="img-responsive" >
 					</div>
                 </li>
             </ul>
@@ -55,11 +56,14 @@ include 'backend.php';
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
-        <div id="page-content-wrapper">
+        <div class="back" id="page-content-wrapper">
+						<div class="row"><img class="sun pulse img-responsive" src="img/sun.png"></div>
+								<img class="island_story img-responsive" src="img/island_cl.png">
+
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1>Your Story</h1> 
+                        <h1 class="story_title">Your Story</h1> 
 							<div>
 								<a href="#menu-toggle" class="btn btn-success" id="menu-toggle">Toggle Story Guidelines</a>
 						    </div>
@@ -68,14 +72,15 @@ include 'backend.php';
 								<div class="form-group">
 								<div class="row">
 									<label for="name" class="col-sm-1 control-label">Name</label>
-									<div class="col-sm-3">
+									<div class="col-sm-3 col-md-3 col-lg-3">
 									  <input name="stud_name" type="text" class="form-control" id="name" placeholder="Your Name" required>
 									</div>
 									<label for="stud_secret" class="col-sm-1 control-label">Secret Word</label>
-									<div class="col-sm-3">
+									<div class="col-sm-3 col-md-3 col-lg-3">
 									  <input name="stud_secret" type="text" class="form-control" id="stud_secret" placeholder="Secret Word" required>
 									</div>
 								</div>
+								<br/>
 								<div class="row">
 									<label for="class" class="col-sm-1 control-label">Class</label>
 									<div class="col-sm-3">
@@ -110,7 +115,7 @@ include 'backend.php';
 								<br/>
 								<textarea name="stud_story" class="story_input" placeholder="Enter Your Story Here..."></textarea>
 								<div class="col-md-offset-4 col-sm-offset-4">
-									<button type="submit" name="sub_story" class="btn btn-info btn-lg">Submit Story</button>
+									<button type="submit" name="sub_story" class="btn btn-success btn-lg">Submit Story</button>
 								</div>
 							</form>
                         
@@ -124,18 +129,46 @@ include 'backend.php';
     <!-- /#wrapper -->
 
     <!-- Menu Toggle Script -->
-    <script>
+<script>
+function strTo_ul( str, id )
+{
+	var split = str.split(',');
+	var cList = $('ul[id="'+ id + '"]' );
+	$.each(split, function(i)
+	{
+		var li = $('<li/>')
+			.addClass('ui-menu-item')
+			.attr('role', 'menuitem')
+			.text(split[i])
+			.appendTo(cList);
+		
+	});
+}
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
-	$(document).ready(function(){
+		
+		
+	$(document).ready(function()
+	{
 		$('li.note_whole').each(function() {
-			var div_id = $(this).find('p.note_text').attr('id');
-			var note_text = Cookies.get(div_id);
-			if( note_text == "" )
+			var par_id = $(this).find('ul').attr('id');
+			var note_text =  Cookies.get(par_id);
+			var ul_id = "ul_" + par_id;
+			var text = "";
+			if( note_text === undefined )
 				$(this).remove();
-			$( '[id="' + div_id +'"]').text(note_text);
+			else if( par_id == "Mystery")
+			{
+				console.log('mystery');
+			}
+			else
+			{
+				console.log( note_text );
+			  strTo_ul( note_text, par_id );
+			}
+			//$( '[id="' + div_id +'"]').append(text);
 		});
 		
 		jQuery.validator.addMethod("lettersonly", function (value, element) {
@@ -160,6 +193,7 @@ include 'backend.php';
 				$(element).closest('.control-group').addClass('has-error');
 			}
 		});
+		
 		$('#stud_class').text( $('#stud_class_nr').val() + $('#stud_class_lt').val() );
 		
 		$('#stud_class_nr').change( function(){ 
@@ -171,7 +205,7 @@ include 'backend.php';
 		});
 		
 	});
-    </script>
+</script>
 
 </body>
 
