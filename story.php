@@ -39,15 +39,16 @@ include 'backend.php';
                 <li class="note_whole">
 					<div class="note">
 						<p class="note_title">Ends of Stories</p>
-						 	<ul class="note_list" id="Ends of Stories">
+						 	<ul class="note_list" id="Endings">
 							</ul>
 					  <img src="img/note.png" class="img-responsive" >
 					</div>
-			      </li>
+									</li>
                 <li class="note_whole">
 					<div class="note">
 						<p class="note_title">Mystery Box</p>
-						<p class="note_list" id="Mystery"></p>
+						<ul class="note_list" id="Mystery">
+						</ul>
 					  <img src="img/note.png" class="img-responsive" >
 					</div>
                 </li>
@@ -58,15 +59,19 @@ include 'backend.php';
         <!-- Page Content -->
         <div class="back" id="page-content-wrapper">
 						<div class="row"><img class="sun pulse img-responsive" src="img/sun.png"></div>
-								<img class="island_story img-responsive" src="img/island_cl.png">
+							
+						<img class="island_story img-responsive" src="img/island_cl.png">     
 
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="story_title">Your Story</h1> 
+                        <h1 class="story_title">Your Story</h1>
+											</div>
+                </div>
+								
 							<div>
 								<a href="#menu-toggle" class="btn btn-success" id="menu-toggle">Toggle Story Guidelines</a>
-						    </div>
+							</div>
 						   </br>
 							<form class="form-horizontal" action="story.php?action=submit_story" method="post" name="story_form">
 								<div class="form-group">
@@ -96,7 +101,7 @@ include 'backend.php';
 										  <option>9</option>	
 									  </select>
 									</div>
-									<div	 class="col-sm-3">
+									<div class="col-sm-3">
 									  <select name="stud_class_lt" class="col-md-1 col-sm-1 form-control" id="stud_class_lt"  required>
 										  <option>A</option>
 										  <option>B</option>
@@ -108,19 +113,17 @@ include 'backend.php';
 									  </select>
 									</div>
 									<div class="col-md-2 col-sm-2">
-									<input name="stud_class" class="col-md-1 col-sm-1 form-control" id="stud_class" readonly >
+										<input name="stud_class" class="col-md-1 col-sm-1 form-control" id="stud_class" readonly >
 									</div>
 								</div>
 								</div>
 								<br/>
 								<textarea name="stud_story" class="story_input" placeholder="Enter Your Story Here..."></textarea>
+								<input readonly id="gdl" name="guidelines" hidden></input>
 								<div class="col-md-offset-4 col-sm-offset-4">
 									<button type="submit" name="sub_story" class="btn btn-success btn-lg">Submit Story</button>
 								</div>
 							</form>
-                        
-                    </div>
-                </div>
             </div>
         </div>
         <!-- /#page-content-wrapper -->
@@ -132,17 +135,21 @@ include 'backend.php';
 <script>
 function strTo_ul( str, id )
 {
-	var split = str.split(',');
-	var cList = $('ul[id="'+ id + '"]' );
-	$.each(split, function(i)
+	if( id != "Mystery" )
 	{
-		var li = $('<li/>')
-			.addClass('ui-menu-item')
-			.attr('role', 'menuitem')
-			.text(split[i])
-			.appendTo(cList);
-		
-	});
+		var split = str.split(',');
+		$("#gdl").val( $('#gdl').val() + (str + '_') ); // put data into hidden element to store it into db
+		var cList = $('ul[id="'+ id + '"]' );
+		$.each(split, function(i)
+		{
+			var li = $('<li/>')
+				.addClass('ui-menu-item')
+				.attr('role', 'menuitem')
+				.text(split[i])
+				.appendTo(cList);
+			
+		});
+	}
 }
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
@@ -157,23 +164,22 @@ function strTo_ul( str, id )
 			var note_text =  Cookies.get(par_id);
 			var ul_id = "ul_" + par_id;
 			var text = "";
-			if( note_text === undefined )
+			if( note_text === "" )
 				$(this).remove();
 			else if( par_id == "Mystery")
 			{
-				console.log('mystery');
+			  // todo
 			}
-			else
+			else	
 			{
-				console.log( note_text );
 			  strTo_ul( note_text, par_id );
 			}
-			//$( '[id="' + div_id +'"]').append(text);
 		});
 		
 		jQuery.validator.addMethod("lettersonly", function (value, element) {
 		return this.optional(element) || /^[a-z0-9_-]+$/i.test(value);
 		}, "Please use only a-z0-9_-");
+		
 		$('.form-control').validate({
 			rules: {
 				login: {
@@ -194,16 +200,15 @@ function strTo_ul( str, id )
 			}
 		});
 		
-		$('#stud_class').text( $('#stud_class_nr').val() + $('#stud_class_lt').val() );
-		
 		$('#stud_class_nr').change( function(){ 
 			$('#stud_class').val( $(this).val() + $('#stud_class_lt').val() );
 		});
-	
 		$('#stud_class_lt').change( function(){ 
 			$('#stud_class').val( $('#stud_class_nr').val() + $(this).val() );
 		});
 		
+			$('#stud_class_nr').change();
+			$('#stud_class_lt').change();
 	});
 </script>
 

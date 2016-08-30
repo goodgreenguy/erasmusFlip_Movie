@@ -107,6 +107,7 @@ if (isset($_GET["submit"]) )
 			$stud_grade[ $i ] =  $row['grade'];
 			$stud_class[ $i ] =  $row['class'];
 			$stud_story[ $i ] =  $row['story'];
+			$guidelines[ $i ] =  $row['guidelines'];
 		}
 				
 		echo json_encode( $student_data, JSON_NUMERIC_CHECK );
@@ -131,11 +132,18 @@ if (isset($_GET["submit"]) )
 				$i += 1;	
 			}
 			
-	//		$story_dat = [$data['plots'], $data['characters'],  $data['settings'], $data['endings'] ];
-			
+	
 			$story_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-				$i = 0;
-			//error_log($story_data, 0);
+		
+			$query2 = 'SELECT Mystery FROM img ORDER BY RANDOM() LIMIT 1';
+			$stmt2 = $db->prepare($query2);
+			$stmt2->execute();
+			$img = $stmt2->fetch(PDO::FETCH_ASSOC);
+	
+			array_push($data, $img);
+		
+			$i = 0;
+
 			foreach( $story_data as $row ) 
 			{
 				$stud_name[ $i ] =  $row['name'];
@@ -157,10 +165,10 @@ if (isset($_GET["action"]) && $_GET["action"] == "submit_story")
 	$class = htmlentities($_POST['stud_class'], ENT_QUOTES);
 	$story = htmlentities($_POST['stud_story'], ENT_QUOTES);
 	$secret = htmlentities($_POST['stud_secret'], ENT_QUOTES);
-	
-	
-	$query = 'INSERT INTO "students" ("name","class","story","secret")  VALUES ( ?, ?, ?, ? )';
-	$data = array( $name, $class,$story ,$secret);
+	$guidelines = htmlentities($_POST['guidelines'], ENT_QUOTES);
+
+	$query = 'INSERT INTO "students" ("name","class","story","secret","guidelines")  VALUES ( ?, ?, ?, ?, ? )';
+	$data = array( $name, $class,$story ,$secret, $guidelines);
 	try
 	{
 		$stmt = $db->prepare($query);
@@ -185,11 +193,17 @@ if ( isset($_GET["action"]) && $_GET["action"] == "getStoryData" )
 
 	$query = 'SELECT * FROM plots, characters, settings, plots, endings FROM story  ORDER BY RANDOM() LIMIT 1';
 	$stmt = $db->prepare($query);
-
 	$stmt->execute();
-	
 	$story_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		$i = 0;
+	
+	$query2 = 'SELECT * FROM filename FROM img ORDER BY RANDOM() LIMIT 1';
+	$stmt2 = $db->prepare($query2);
+	$stmt2->execute();
+	$img = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+		
+	array_push($story_data, $img);
+
+	$i = 0;
 	error_log($story_data, 0);
 	foreach( $story_data as $row ) 
 	{

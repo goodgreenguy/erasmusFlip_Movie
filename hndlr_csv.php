@@ -22,10 +22,10 @@ $db->setAttribute(PDO::ATTR_ERRMODE,
 function import_csv_to_sqlite(&$pdo, $csv_path, $csv_filename,	$options = array(
 					'table' => 'story',
 					'fields' => array(
-						"characters",// => $characters,
-						"settings", //=> $settings,
-						"plots", //=> $plots,
-						"endings", //=> $endings,
+						"characters",
+						"settings", 
+						"plots", 
+						"endings",
 						"secret", 
 						"filename"
 					)

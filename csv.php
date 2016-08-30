@@ -13,16 +13,6 @@ if(isset($_POST["submit"])) {
 			$uploadOk = 0;
 			//die("Sorry, file type not allowed");
 		}
-	
-	
-    // $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-    // if($check !== false) {
-        // echo "File is an image - " . $check["mime"] . ".";
-        // $uploadOk = 1;
-    // } else {
-        // echo "File is not an image.";
-        // $uploadOk = 0;
-    // }
 }
 // Check if file already exists
 if (file_exists($target_file)) {

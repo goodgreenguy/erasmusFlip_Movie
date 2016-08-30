@@ -53,6 +53,14 @@ include 'header.php';
 				<option> </option>
 			  </select>
 			</div>
+			<div class="col-md-5 form-group">
+			  <label for="country">Guidelines:</label>
+				<div class="panel panel-primary">
+					<div class="panel-body" id="guidelines"></div>
+				</div>
+			</div>
+		</div>
+			 </div>
 		</div>
 		<div class="panel panel-primary">
 			<div class="panel-body" id="story">
@@ -150,8 +158,8 @@ include 'header.php';
 							<i class="glyphicon glyphicon-trash"></i>
 							<span>Delete</span>
 						</button>
-						<span id="sel_all" class="btn btn-primary">Select All  </span>
-						<input hidden type="checkbox" id="sel_chk" class="sel_all toggle">
+						<span id="sel_all2" class="btn btn-primary">Select All  </span>
+						<input hidden type="checkbox" id="sel_chk2" class="sel_all toggle">
 						<!-- The global file processing state -->
 						<span class="fileupload-process"></span>
 					</div>
@@ -384,7 +392,7 @@ echo '
 	var st_class = [];
 	var st_story = [];
 	var student_data;
-
+	var guidelines = [];
 function handleStudData( data )
 {
 	student_data = data;
@@ -392,9 +400,9 @@ function handleStudData( data )
 		students[i] = val['name'];
 		st_class[i] = val['class'];
 		st_story[ val['name' ] ] = val['story']; // access story by student name
+		guidelines[ val['name' ] ] = val['guidelines']; // access guidelines by student name
 	});
     
-
   $.each(st_class, function(i, val){
 	  if( $('#'+val).text() != val )
 		$('#st_class').append('<option id="' + val + '">' + val + '</option>'); //add option if not already present
@@ -461,11 +469,14 @@ $(document).ready(function(){
 	
 	$('#students').change(function(){
 		$('#story').text( st_story[ $(this).val() ] );
+		var gdl = guidelines[ $(this).val() ];
+		if( gdl != undefined )
+			gdl = gdl.replace(/_/g, '; ');
+		$('#guidelines').text( gdl );
 	});
 	
 	$('#st_class').change(function(){
 		$('#students').change();
-		//$('#story').text( st_story[ $('#students').val() ] );
 	});
 
 	$('#students').change();

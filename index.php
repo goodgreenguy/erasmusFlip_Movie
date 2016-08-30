@@ -116,7 +116,7 @@ function handleStoryData( data )
 		for( val in key )
 		{
 			story[ val ] = data[ i ][val];
-			console.log(story[ val ]);
+			console.log(	story[ val ] );
 		}		
 	});
 }		
@@ -146,6 +146,8 @@ function replace_chest( id )
 	{ 
 		cloud_text = story[ id ];
 
+			console.log( cloud_text );
+		
 		if( id == "Endings" )
 		{
 			boxes_opened.push("Plots");
@@ -160,22 +162,31 @@ function replace_chest( id )
 			Cookies.set(id, cloud_text, { expires: cookie_exp });
 			Cookies.set("Endings", "", { expires: cookie_exp });
 		}
-		else if( id != "Mystery")
-		{
-			Cookies.set(id, cloud_text, { expires: cookie_exp });
-		}
+
+		
 		boxes_opened.push(id);			
 
 		var conv = "#"+id;
 		$(conv).find('img').remove();
 		$(conv).find('p').remove();
 		
-		$(conv).append('<img src="img/cloud.png" class="cloud" alt="' + id +'" >');
-		$(conv).append('<p class="cloud_title">'+ id + '</p>');
-	  var ul_id = "ul_" + id;
-		$(conv).append('<ul class="cloud_list" id="' + ul_id + '"></ul>');
-		$(conv).removeClass('box_up').addClass('cloud_up');
-		strTo_ul( cloud_text, ul_id );
+		if( id != "Mystery")
+		{
+			$(conv).append('<img src="img/cloud.png" class="cloud" alt="' + id +'" >');
+			$(conv).append('<p class="cloud_title">'+ id + '</p>');
+			var ul_id = "ul_" + id;
+			$(conv).append('<ul class="cloud_list" id="' + ul_id + '"></ul>');
+			$(conv).removeClass('box_up').addClass('cloud_up');
+			strTo_ul( cloud_text, ul_id );
+		}
+		else 
+		{
+			$(conv).append('<img src="img/' + cloud_text + '" class="cloud" alt="' + id +'" id="myst_img" >');
+			$(conv).append('<p class="cloud_title">'+ id + '</p>');
+			$(conv).removeClass('box_up').addClass('cloud_up');
+			Cookies.set(id, cloud_text, { expires: cookie_exp });
+		}
+		
 	}
 	
 	if( ( boxes_opened.length == 5 ) && !pen_active )
@@ -195,6 +206,11 @@ $(document).ready(function(){
 	
 	$(".tossing").click( function(){
 		replace_chest( this.id );
+	});
+	
+	$('#myst_img').click(function()
+	{
+		 $(this).animate({width: "200px", height: "200px"}, 1000);
 	});
 });
 

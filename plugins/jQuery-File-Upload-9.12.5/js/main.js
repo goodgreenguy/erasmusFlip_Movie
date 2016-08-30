@@ -15,6 +15,12 @@ $('#sel_all').click(function(){
 	$('#sel_chk').trigger('click');
 });
 
+$('#sel_all2').click(function(){
+	$('#sel_chk2').trigger('click');
+});
+
+
+
 $(function () {
     'use strict';
 /* 
@@ -39,8 +45,8 @@ var fileName = "";
 var all = [ csv_file, img_file ];
 
     // Initialize the jQuery File Upload widget:
-   csv_file.fileupload({
-				dropZone: $(this),
+csv_file.fileupload({
+		dropZone: $(this),
 	// formData: this.filename,
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
@@ -56,59 +62,67 @@ var all = [ csv_file, img_file ];
 	  data.formData = {
 		  "file" : fileName,
 		  };
-	})
+	});
 
 	
 	// Initialize the jQuery File Upload widget:
-    img_file.fileupload({
-	
+img_file.fileupload({
 		dropZone: $(this),
-		
-	
-        // Uncomment the following to send cross-domain cookies:
-        //xhrFields: {withCredentials: true},
-        url: 'hndlr_img.php'
-    });
+		// Uncomment the following to send cross-domain cookies:
+    //xhrFields: {withCredentials: true},
+     url: 'hndlr_img.php'
+    })
+		.bind('fileuploadadd', function (e, data) {
+	  $.each(data.files, function (index, file) {
+		fileName = file.name;
+	  });
+	})
+		.bind('fileuploadsubmit', function (e, data) {
+	  data.formData = {
+		  "file_img" : fileName,
+		  };
+	});
 
-    // Enable iframe cross-domain access via redirect option:
-   img_file.fileupload(
-        'option',
-        'redirect',
-        window.location.href.replace(
-            /\/[^\/]*$/,
-            '/cors/result.html?%s'
-        )
-    );
+// Enable iframe cross-domain access via redirect option:
+img_file.fileupload(
+	'option',
+	'redirect',
+	 window.location.href.replace(
+		 /\/[^\/]*$/,
+		'/cors/result.html?%s'
+	 )
+);
 
 
-        // Load existing files:
-		csv_file.addClass('fileupload-processing');
-        $.ajax({
-            // Uncomment the following to send cross-domain cookies:
-            //xhrFields: {withCredentials: true},
-            url: csv_file.fileupload('option', 'url'),
-            dataType: 'json',
-            context: csv_file[0]
-        }).always(function () {
-            $(this).removeClass('fileupload-processing');
-        }).done(function (result) {
-            $(this).fileupload('option', 'done')
-                .call(this, $.Event('done'), {result: result});
-        });
+// Load existing files:
+csv_file.addClass('fileupload-processing');
+	$.ajax({
+			// Uncomment the following to send cross-domain cookies:
+			//xhrFields: {withCredentials: true},
+			url: csv_file.fileupload('option', 'url'),
+			dataType: 'json',
+			context: csv_file[0]
+	}).always(function () {
+			$(this).removeClass('fileupload-processing');
+	}).done(function (result) {
+			$(this).fileupload('option', 'done')
+					.call(this, $.Event('done'), {result: result});
+});
+				
        // Load existing files:
-        img_file.addClass('fileupload-processing');
-        $.ajax({
-            // Uncomment the following to send cross-domain cookies:
-            //xhrFields: {withCredentials: true},
-            url:  img_file.fileupload('option', 'url'),
-            dataType: 'json',
-            context:  img_file[0]
-        }).always(function () {
-            $(this).removeClass('fileupload-processing');
-        }).done(function (result) {
-            $(this).fileupload('option', 'done')
-                .call(this, $.Event('done'), {result: result});
-        });
+img_file.addClass('fileupload-processing');
+$.ajax({
+		// Uncomment the following to send cross-domain cookies:
+		//xhrFields: {withCredentials: true},
+		url:  img_file.fileupload('option', 'url'),
+		dataType: 'json',
+		context:  img_file[0]
+}).always(function () {
+		$(this).removeClass('fileupload-processing');
+}).done(function (result) {
+		$(this).fileupload('option', 'done')
+				.call(this, $.Event('done'), {result: result});
+});
 
 
 });
