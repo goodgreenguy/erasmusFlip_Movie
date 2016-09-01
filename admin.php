@@ -60,8 +60,6 @@ include 'header.php';
 				</div>
 			</div>
 		</div>
-			 </div>
-		</div>
 		<div class="panel panel-primary">
 			<div class="panel-body" id="story">
 			</div>
