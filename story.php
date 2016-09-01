@@ -60,7 +60,7 @@ include 'backend.php';
         <div class="back" id="page-content-wrapper">
 						<div class="row"><img class="sun pulse img-responsive" src="img/sun.png"></div>
 							
-						<img class="island_story img-responsive" src="img/island_cl.png">     
+					 <!--	<img class="island_story img-responsive" src="img/island_cl.png"> -->    
 
             <div class="container-fluid">
                 <div class="row">

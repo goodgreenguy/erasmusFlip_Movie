@@ -141,7 +141,7 @@ var pen_active = false;
 function replace_chest( id )
 {
 	var cloud_text = "";
-	var cookie_exp = 0.007;
+	var cookie_exp = 0.0007;
 	if( $.inArray( id, boxes_opened) == -1 ) // disable multiple cloud spawn 
 	{ 
 		cloud_text = story[ id ];
@@ -162,7 +162,10 @@ function replace_chest( id )
 			Cookies.set(id, cloud_text, { expires: cookie_exp });
 			Cookies.set("Endings", "", { expires: cookie_exp });
 		}
-
+		else
+		{
+				Cookies.set(id, cloud_text, { expires: cookie_exp });
+		}
 		
 		boxes_opened.push(id);			
 
@@ -181,10 +184,9 @@ function replace_chest( id )
 		}
 		else 
 		{
-			$(conv).append('<img src="img/' + cloud_text + '" class="cloud" alt="' + id +'" id="myst_img" >');
+			$(conv).append('<img src="files/img/123/' + cloud_text + '" class="cloud" alt="' + id +'" id="myst_img" >');
 			$(conv).append('<p class="cloud_title">'+ id + '</p>');
 			$(conv).removeClass('box_up').addClass('cloud_up');
-			Cookies.set(id, cloud_text, { expires: cookie_exp });
 		}
 		
 	}
