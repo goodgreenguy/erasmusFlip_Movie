@@ -43,7 +43,7 @@ function import_img_to_sqlite(&$pdo, $img_path, $img_filename )
 class CustomUploadHandler2 extends UploadHandler {
     protected function get_user_id() {
         @session_start();
-        return 'img/' . $_SESSION['secret'];
+        return 'img/';
     }
 		protected function handle_form_data($file, $index) {
 		 @session_start();
@@ -71,14 +71,14 @@ $secret =  $_SESSION['secret'];
 if( $_SERVER['REQUEST_METHOD'] === 'DELETE' )
 {
 	$img_filename =  $_SESSION['filename_img'];
-	$img=  '/var/www/files/img/' . $_SESSION['secret'] . '/' . $img_filename;
+	$img=  '/var/www/files/img/' . $img_filename;
 
 	delete_img_from_db( $db, $img_filename );
 }
 else if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 	$img_filename =  $_SESSION['filename_img'];
-	$img=  '/var/www/files/img/' . $_SESSION['secret'] . '/' . $img_filename;
+	$img=  '/var/www/files/img/' . $img_filename;
 
 	import_img_to_sqlite( $db, $img, $img_filename );
 }

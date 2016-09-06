@@ -184,7 +184,7 @@ function replace_chest( id )
 		}
 		else 
 		{
-			$(conv).append('<img src="files/img/123/' + cloud_text + '" class="cloud" alt="' + id +'" id="myst_img" >');
+			$(conv).append('<img src="files/img/' + cloud_text + '" class="cloud" alt="' + id +'" id="myst_img" >');
 			$(conv).append('<p class="cloud_title">'+ id + '</p>');
 			$(conv).removeClass('box_up').addClass('cloud_up');
 		}

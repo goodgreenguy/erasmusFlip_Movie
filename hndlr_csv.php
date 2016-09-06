@@ -49,15 +49,8 @@ function import_csv_to_sqlite(&$pdo, $csv_path, $csv_filename,	$options = array(
 		}, fgetcsv($csv_handle, 0, $delimiter));
 	}
 	
-/* 	$create_fields_str = join(', ', array_map(function ($field){
-		return "$field TEXT";
-	}, $fields)); */
-	
 	$pdo->beginTransaction();
 	
-	// $create_table_sql = "CREATE TABLE IF NOT EXISTS $table ($create_fields_str)";
-	// $pdo->exec($create_table_sql);
-
 	$insert_fields_str = join(', ', $fields);
 	$insert_values_str = join(', ', array_fill(0, count($fields),  '?'));
 	$insert_sql = "INSERT INTO $table ($insert_fields_str) VALUES ($insert_values_str)";
@@ -66,6 +59,11 @@ function import_csv_to_sqlite(&$pdo, $csv_path, $csv_filename,	$options = array(
 	$inserted_rows = 0;
 	while (($data = fgetcsv($csv_handle, 0, $delimiter)) !== FALSE) {
 		// remove first row
+		$data[ 1 ] = w1250_to_utf8($data[ 1 ]); //convert to UTF-8
+		$data[ 2 ] = w1250_to_utf8($data[ 2 ]); //convert to UTF-8
+		$data[ 3 ] = w1250_to_utf8($data[ 3 ]); //convert to UTF-8
+		$data[ 0 ] = w1250_to_utf8($data[ 0 ]); //convert to UTF-8
+
 		if( $inserted_rows != 0 || in_array('', $data) 	)
 		{
 			array_push($data, $secret);
@@ -133,3 +131,55 @@ else if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 	import_csv_to_sqlite( $db, $csv, $csv_filename );
 }
+
+function w1250_to_utf8($text) {
+    // map based on:
+    // http://konfiguracja.c0.pl/iso02vscp1250en.html
+    // http://konfiguracja.c0.pl/webpl/index_en.html#examp
+    // http://www.htmlentities.com/html/entities/
+    $map = array(
+        chr(0x8A) => chr(0xA9),
+        chr(0x8C) => chr(0xA6),
+        chr(0x8D) => chr(0xAB),
+        chr(0x8E) => chr(0xAE),
+        chr(0x8F) => chr(0xAC),
+        chr(0x9C) => chr(0xB6),
+        chr(0x9D) => chr(0xBB),
+        chr(0xA1) => chr(0xB7),
+        chr(0xA5) => chr(0xA1),
+        chr(0xBC) => chr(0xA5),
+        chr(0x9F) => chr(0xBC),
+        chr(0xB9) => chr(0xB1),
+        chr(0x9A) => chr(0xB9),
+        chr(0xBE) => chr(0xB5),
+        chr(0x9E) => chr(0xBE),
+        chr(0x80) => '&euro;',
+        chr(0x82) => '&sbquo;',
+        chr(0x84) => '&bdquo;',
+        chr(0x85) => '&hellip;',
+        chr(0x86) => '&dagger;',
+        chr(0x87) => '&Dagger;',
+        chr(0x89) => '&permil;',
+        chr(0x8B) => '&lsaquo;',
+        chr(0x91) => '&lsquo;',
+        chr(0x92) => '&rsquo;',
+        chr(0x93) => '&ldquo;',
+        chr(0x94) => '&rdquo;',
+        chr(0x95) => '&bull;',
+        chr(0x96) => '&ndash;',
+        chr(0x97) => '&mdash;',
+        chr(0x99) => '&trade;',
+        chr(0x9B) => '&rsquo;',
+        chr(0xA6) => '&brvbar;',
+        chr(0xA9) => '&copy;',
+        chr(0xAB) => '&laquo;',
+        chr(0xAE) => '&reg;',
+        chr(0xB1) => '&plusmn;',
+        chr(0xB5) => '&micro;',
+        chr(0xB6) => '&para;',
+        chr(0xB7) => '&middot;',
+        chr(0xBB) => '&raquo;',
+    );
+    return html_entity_decode(mb_convert_encoding(strtr($text, $map), 'UTF-8', 'ISO-8859-2'), ENT_QUOTES, 'UTF-8');
+}
+

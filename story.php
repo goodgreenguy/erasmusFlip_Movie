@@ -168,7 +168,7 @@ function strTo_ul( str, id )
 				$(this).remove();
 			else if( par_id == "Mystery")
 			{
-			  // todo
+			  $('#Mytery').append('<img src="files/img/123/' + note_text +'">'); // todo
 			}
 			else	
 			{

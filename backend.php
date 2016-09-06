@@ -55,7 +55,7 @@ if (isset($_GET["submit"]) )
 
 	if ( $submit == "getUserData" )
 	{
-		$query = 'SELECT user_name, user_country, secret, user_school, user_email FROM users';
+		$query = 'SELECT user_name, user_country, secret, user_school, user_email, is_admin FROM users';
 		$stmt = $db->prepare($query);
 		$stmt->execute();
 		
@@ -68,6 +68,7 @@ if (isset($_GET["submit"]) )
 			$user_country[ $i ] =  $row['user_country'];
 			$user_school[ $i ] =  $row['secret'];
 			$user_school[ $i ] =  $row['user_school'];
+			$user_admin[ $i ] =  $row['is_admin'];
 		}
 		
 		
@@ -161,29 +162,39 @@ else
 }
 if (isset($_GET["action"]) && $_GET["action"] == "submit_story")  
 {
+	$q_sec =  'SELECT secret FROM users';
+	$stmt = $db->prepare($q_sec);
+	$stmt->execute();
+	$secrets =  $stmt->fetchAll(PDO::FETCH_COLUMN);
+	
 	$name = htmlentities($_POST['stud_name'], ENT_QUOTES);
 	$class = htmlentities($_POST['stud_class'], ENT_QUOTES);
 	$story = htmlentities($_POST['stud_story'], ENT_QUOTES);
 	$secret = htmlentities($_POST['stud_secret'], ENT_QUOTES);
 	$guidelines = htmlentities($_POST['guidelines'], ENT_QUOTES);
 
-	$query = 'INSERT INTO "students" ("name","class","story","secret","guidelines")  VALUES ( ?, ?, ?, ?, ? )';
-	$data = array( $name, $class,$story ,$secret, $guidelines);
-	try
+	if( in_array($secret, $secrets) // don't allow random users to submit story into database
+	  && $story != ''
+		&& $class != '' )
 	{
-		$stmt = $db->prepare($query);
-	/* 	$stmt->bindParam(':name', $name);
-		$stmt->bindParam(':school', $school);
-		$stmt->bindParam(':class', $class);
-		$stmt->bindParam(':country', $country);
-		$stmt->bindParam(':story', $story); */
+		$query = 'INSERT INTO "students" ("name","class","story","secret","guidelines")  VALUES ( ?, ?, ?, ?, ? )';
+		$data = array( $name, $class,$story ,$secret, $guidelines);
+		try
+		{
+			$stmt = $db->prepare($query);
+		/* 	$stmt->bindParam(':name', $name);
+			$stmt->bindParam(':school', $school);
+			$stmt->bindParam(':class', $class);
+			$stmt->bindParam(':country', $country);
+			$stmt->bindParam(':story', $story); */
 
-		$stmt->execute( $data );
-	}
-	catch(PDOException $e) 
-	{
-		// Print PDOException message
-		$exc = $e->getMessage();
+			$stmt->execute( $data );
+		}
+		catch(PDOException $e) 
+		{
+			// Print PDOException message
+			$exc = $e->getMessage();
+		}
 	}
 }
 

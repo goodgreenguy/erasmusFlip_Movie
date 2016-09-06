@@ -189,7 +189,7 @@ class OneFileLoginApplication
     private function checkPasswordCorrectnessAndLogin()
     {
         // remember: the user can log in with username or email address
-        $sql = 'SELECT user_name, user_email, user_password_hash, user_country, user_school, secret
+        $sql = 'SELECT user_name, user_email, user_password_hash, user_country, user_school, secret, is_admin
                 FROM users
                 WHERE user_name = :user_name OR user_email = :user_name
                 LIMIT 1';
@@ -213,6 +213,7 @@ class OneFileLoginApplication
                 $_SESSION['user_school'] = $result_row->user_school;
 				$_SESSION['secret'] = $result_row->secret;
                 $_SESSION['user_is_logged_in'] = true;
+								 $_SESSION['is_admin'] = $result_row->is_admin;
                 $this->user_is_logged_in = true;
                 return true;
             } else {

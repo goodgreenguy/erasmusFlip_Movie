@@ -18,7 +18,7 @@ include 'header.php';
 <link rel="stylesheet" href="plugins/jQuery-File-Upload-9.12.5/css/jquery.fileupload.css">
 <link rel="stylesheet" href="plugins/jQuery-File-Upload-9.12.5/css/jquery.fileupload-ui.css">
 <!-- blueimp Gallery styles -->
-<link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+<link rel="stylesheet" href="plugins/blueimp-gallery/css/blueimp-gallery.min.css">
 <!-- CSS adjustments for browsers with JavaScript disabled -->
 <noscript><link rel="stylesheet" href="plugins/jQuery-File-Upload-9.12.5/css/jquery.fileupload-noscript.css"></noscript>
 <noscript><link rel="stylesheet" href="plugins/jQuery-File-Upload-9.12.5/css/jquery.fileupload-ui-noscript.css"></noscript>
@@ -37,7 +37,7 @@ include 'header.php';
   <div class="tab-content">
  
     <div id="home" class="tab-pane fade in active">
-      <h3>Story review for <?php echo $_SESSION['user_school'] . ' from ' . $_SESSION['user_country'] ?></h3>
+      <h3>Story review for school <?php echo $_SESSION['user_school'] . ' from ' . $_SESSION['user_country'] ?></h3>
 	  <h4>Secret word: <?php echo $_SESSION['secret'] ?></h4>
       <p>
 	  <div class="row">
@@ -187,7 +187,7 @@ include 'header.php';
 <div class="col-md-3">
 <!-- Trigger the modal with a button -->
 <?php 
-	if(isset($_SESSION['user_is_logged_in']) && $_SESSION['user_name'] == 'admin' )
+	if(isset($_SESSION['user_is_logged_in']) && $_SESSION['is_admin'] )
 echo '
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Register User</button>
 
@@ -342,14 +342,14 @@ echo '
 <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
 <script src="plugins/jQuery-File-Upload-9.12.5/js/vendor/jquery.ui.widget.js"></script>
 <!-- The Templates plugin is included to render the upload/download listings -->
-<script src="http://blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
+<script src="plugins/JavaScript-Templates/js/tmpl.min.js"></script>
 <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
-<script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+<script src="plugins/JavaScript-Load-Image/js/load-image.all.min.js"></script>
 <!-- The Canvas to Blob plugin is included for image resizing functionality -->
-<script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+<script src="plugins/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
 
 <!-- blueimp Gallery script -->
-<script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+<script src="plugins/blueimp-gallery/js/jquery.blueimp-gallery.min.js"></script>
 <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
 <script src="plugins/jQuery-File-Upload-9.12.5/js/jquery.iframe-transport.js"></script>
 <!-- The basic File Upload plugin -->
