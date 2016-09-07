@@ -293,14 +293,14 @@ img.box_open{
 }
 
 ul.cloud_list{
-	position: absolute;
-    top: 16%;
+    position: absolute;
+    top: 26%;
     left: 5%;
     font-size: 12px;
     overflow-y: auto;
     word-wrap: break-word;
     width: 58%;
-    height: 53%;
+    height: 97%;
 }
 
 .cloud_title{
@@ -320,7 +320,8 @@ ul.cloud_list{
 }
 
 .cloud_up{
-	bottom: 30px;
+	bottom: 110px;
+	max-height: 100px;
 }
 
 .box_up{
