@@ -243,19 +243,19 @@ img.box_open{
 }
 
 .box_text{
-    width: 31%;
-    font-size: 15px;
+    font-size: 1.9vw;
     position: absolute;
-    left: 11%;
-    top: 13%;
+    top: 0%;
     text-align: center;
     z-index: 1;
-    transform: rotate(-16deg);
-    background: #e7cc85;
+    color: #6e342c;
+    width: 39%;
+    font-family: cloudFont;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #dcc084, 0 0 70px #c7ad7c, 0 0 80px #b46c44, 0 0 100px #e2c571, 0 0 150px #bbd0eb;
 }
 
 .box_text_set{
-	left: 25%;
+	left: 22%;
 }
 
 
@@ -293,14 +293,14 @@ img.box_open{
 }
 
 ul.cloud_list{
-    position: absolute;
-    top: 26%;
-    left: 5%;
-    font-size: 12px;
+		position: absolute;
+    top: 29%;
+    left: 8%;
+    font-size: 1.3vw;
     overflow-y: auto;
     word-wrap: break-word;
     width: 58%;
-    height: 97%;
+    height: 87%;
 }
 
 .cloud_title{
@@ -426,8 +426,9 @@ div.stretchy-wrapper > div {
     top: 15%;
     width: 75%;
     word-wrap: break-word;
-    font-size: 20px;
+    font-size: 30px;
     text-align: center;
+		font-family: cloudFont;
 }
 
 .island_story{
@@ -445,7 +446,7 @@ ul.note_list{
     font-size: 15px;
     overflow-y: auto;
     word-wrap: break-word;
-    width: 66%;
+    width: 90%;
     height: 53%;
 }
 

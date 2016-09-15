@@ -179,6 +179,14 @@ if (isset($_GET["action"]) && $_GET["action"] == "submit_story")
 	{
 		$query = 'INSERT INTO "students" ("name","class","story","secret","guidelines")  VALUES ( ?, ?, ?, ?, ? )';
 		$data = array( $name, $class,$story ,$secret, $guidelines);
+
+ $data[ 0 ] = mb_convert_encoding( $data[ 0 ], 'UTF-8', 'HTML_ENTITIES');
+ $data[ 1 ] = mb_convert_encoding( $data[ 1 ], 'UTF-8', 'HTML_ENTITIES');
+ $data[ 2 ] = mb_convert_encoding( $data[ 2 ], 'UTF-8', 'HTML_ENTITIES');
+ $data[ 3 ] = mb_convert_encoding( $data[ 3 ], 'UTF-8', 'HTML_ENTITIES');
+ $data[ 4 ] = mb_convert_encoding( $data[ 4 ], 'UTF-8', 'HTML_ENTITIES');
+
+
 		try
 		{
 			$stmt = $db->prepare($query);
