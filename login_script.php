@@ -209,9 +209,9 @@ class OneFileLoginApplication
                 // write user data into PHP SESSION [a file on your server]
                 $_SESSION['user_name'] = $result_row->user_name;
                 $_SESSION['user_email'] = $result_row->user_email;
-				$_SESSION['user_country'] = $result_row->user_country;
+								$_SESSION['user_country'] = $result_row->user_country;
                 $_SESSION['user_school'] = $result_row->user_school;
-				$_SESSION['secret'] = $result_row->secret;
+								$_SESSION['secret'] = $result_row->secret;
                 $_SESSION['user_is_logged_in'] = true;
 								 $_SESSION['is_admin'] = $result_row->is_admin;
                 $this->user_is_logged_in = true;
@@ -285,6 +285,7 @@ class OneFileLoginApplication
 		$user_email = htmlentities($_POST['user_email'], ENT_QUOTES);
 		$user_country = htmlentities($_POST['user_country'], ENT_QUOTES);
 		$user_school = htmlentities($_POST['user_school'], ENT_QUOTES);
+		$user_secret = htmlentities($_POST['user_secret'], ENT_QUOTES);
         $user_password = $_POST['user_password_new'];
         // crypt the user's password with the PHP 5.5's password_hash() function, results in a 60 char hash string.
         // the constant PASSWORD_DEFAULT comes from PHP 5.5 or the password_compatibility_library
@@ -293,8 +294,9 @@ class OneFileLoginApplication
         $query = $this->db_connection->prepare($sql);
         $query->bindValue(':user_name', $user_name);
         $query->bindValue(':user_email', $user_email);
-		$query->bindValue(':user_country', $user_country);
-		$query->bindValue(':user_school', $user_school);
+				$query->bindValue(':user_country', $user_country);
+				$query->bindValue(':user_school', $user_school);
+				$query->bindValue(':user_secret', $user_secret);
         $query->execute();
         // As there is no numRows() in SQLite/PDO (!!) we have to do it this way:
         // If you meet the inventor of PDO, punch him. Seriously.
@@ -302,14 +304,15 @@ class OneFileLoginApplication
         if ($result_row) {
             $this->feedback = "Sorry, that username / email is already taken. Please choose another one.";
         } else {
-            $sql = 'INSERT INTO users (user_name, user_password_hash, user_email, user_country, user_school)
-                    VALUES(:user_name, :user_password_hash, :user_email, :user_country, :user_school)';
+            $sql = 'INSERT INTO users (user_name, user_password_hash, user_email, user_country, user_school, secret)
+                    VALUES(:user_name, :user_password_hash, :user_email, :user_country, :user_school, :user_secret)';
             $query = $this->db_connection->prepare($sql);
             $query->bindValue(':user_name', $user_name);
             $query->bindValue(':user_password_hash', $user_password_hash);
             $query->bindValue(':user_email', $user_email);
-			$query->bindValue(':user_country', $user_country);
+						$query->bindValue(':user_country', $user_country);
             $query->bindValue(':user_school', $user_school);
+            $query->bindValue(':user_secret', $user_secret);
 
             // PDO's execute() gives back TRUE when successful, FALSE when not
             // @link http://stackoverflow.com/q/1661863/1114320
